@@ -11,7 +11,7 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 OPTIONS=$(whiptail --title "CHIP customiser" --checklist --separate-output \
-"Choose your options" 20 78 4 \
+"Choose your options" 20 78 10 \
 "first_run" "Update and change some default settings" OFF \
 "say" "Android text to speech engine" OFF \
 "bluetooth_speaker" "Add a bluetooth speaker" OFF \
@@ -26,6 +26,6 @@ OPTIONS=$(whiptail --title "CHIP customiser" --checklist --separate-output \
 exitstatus=$?
 if [ $exitstatus = 0 ]; then
   for OPTION in $OPTIONS; do
-    curl -sL https://raw.githubusercontent.com/norgeous/chip-scripts/scripts/$OPTION.sh | bash -
+    curl -sL "https://raw.githubusercontent.com/norgeous/chip-scripts/master/scripts/$OPTION.sh" | bash -
   done
 fi
