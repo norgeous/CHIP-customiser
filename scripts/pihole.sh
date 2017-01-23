@@ -20,6 +20,8 @@ clear
 #curl -L https://install.pi-hole.net | bash
 curl -L https://raw.githubusercontent.com/pi-hole/pi-hole/739aaafa9a7cf90fb0ab58af0f873b7cc8aec1f5/automated%20install/basic-install.sh | bash # Pi-hole v2.10.2
 
+sleep 10
+
 # fix piholes dhcpcd
 sed -i 's|\<  static ip_address=192.168.100.1/24\>|#  static ip_address=192.168.100.1/24|g' /etc/dhcpcd.conf
 sed -i 's|\<  static routers=192.168.100.1\>|#  static routers=192.168.100.1|g' /etc/dhcpcd.conf

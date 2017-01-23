@@ -11,12 +11,12 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 OPTIONS=$(whiptail --title "CHIP customiser" --checklist --separate-output \
-"Choose your options" 20 78 10 \
-"first_run" "Update and change some default settings" OFF \
-"say" "Android text to speech engine" OFF \
-"bluetooth_speaker" "Add a bluetooth speaker" OFF \
-"motioneye" "Remote webcam" OFF \
-"pihole" "Adblocker" OFF \
+"Choose your options" 10 40 10 \
+"first_run" "" OFF \
+"say" "" OFF \
+"bluetooth_speaker" "" OFF \
+"motioneye" "" OFF \
+"pihole" "" OFF \
 "wifi_ap" "" OFF \
 "nodejs" "" OFF \
 "wetty" "Remote TTY terminal" OFF \
