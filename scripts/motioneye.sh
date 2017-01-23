@@ -8,13 +8,7 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-apt install -y python-pip python-dev curl libssl-dev libcurl4-openssl-dev libjpeg-dev libx264-142 libavcodec56 libavformat56 libmysqlclient18 libswscale3 libpq5 v4l-utils uvcdynctrl
-
-# ffmpeg
-apt install -y ffmpeg
-#wget https://github.com/ccrisan/motioneye/wiki/precompiled/ffmpeg_3.1.1-1_armhf.deb
-#dpkg -i ffmpeg_3.1.1-1_armhf.deb
-#rm ffmpeg_3.1.1-1_armhf.deb
+apt install -y python-pip python-dev curl libssl-dev libcurl4-openssl-dev libjpeg-dev libx264-142 libavcodec56 libavformat56 libmysqlclient18 libswscale3 libpq5 v4l-utils uvcdynctrl ffmpeg
 
 # motion
 apt-get install -y motion

@@ -9,7 +9,12 @@ fi
 # wlan1 ap settings
 SSID="BTWifi-base"
 PASS="12345678"
-NETWORK=192.168.100  # 192.168.100.x
+NETWORK="192.168.100"  # 192.168.100.x
+
+# User provides settings
+SSID=$(whiptail --title "Wifi SSID" --inputbox "Enter Wifi AP SSID" --nocancel 8 78 $SSID 3>&1 1>&2 2>&3)
+PASS=$(whiptail --title "Wifi Password" --inputbox "Enter Wifi password" --nocancel 8 78 $PASS 3>&1 1>&2 2>&3)
+NETWORK=$(whiptail --title "Network Range" --inputbox "Enter Wifi network range (first 3 octets only)" --nocancel 8 78 $NETWORK 3>&1 1>&2 2>&3)
 
 # wlan1 config
 cat <<EOF > /etc/network/interfaces.d/wlan1
