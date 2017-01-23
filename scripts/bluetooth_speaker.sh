@@ -60,6 +60,7 @@ chmod +x /usr/bin/speaker
 echo "Scanning for Bluetooth devices..."
 MACS=`hcitool scan | grep -v "Scanning ..." | sed 's/\s/ /g;s/$/ OFF/g'`
 echo "$MACS"
+sleep 5
 MAC=$(whiptail --title "Connect a bluetooth device" --radiolist "Choose bluetooth device" 20 78 10 `echo "$MACS"` 3>&1 1>&2 2>&3)
 exitstatus=$?
 if [ $exitstatus = 0 ]; then
