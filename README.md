@@ -26,4 +26,8 @@ bash <(curl -sL https://raw.githubusercontent.com/norgeous/chip-scripts/master/R
 ###### wetty
 ###### motioneye
 ###### bluetooth_speaker
+connect a blutooth speaker and setup a systemd to reconnect it on reboot.
+
+`systemctl restart speaker`
+
 ###### 
