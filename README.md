@@ -15,14 +15,15 @@ Various bash scripts for CHIP (headless mode) using wiptail
 11. You can now connect to the CHIP over the local network (using putty or `ssh`)
 
 #### Download and run Chip Scripts
-first become root:
-```
-sudo su
-```
-then download and run the script
+Login as `root` with password `chip` and download and run the script with:
 ```
 bash <(curl -sL https://raw.githubusercontent.com/norgeous/chip-scripts/master/RUNME.sh)
 ```
 
 #### Description of each menu option
-###### First run
+###### first_run
+###### pihole
+###### wetty
+###### motioneye
+###### bluetooth_speaker
+###### 
