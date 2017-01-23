@@ -1,5 +1,5 @@
-# Chip Scripts
-Various bash scripts for CHIP (headless mode)
+# Chip Customiser
+Various bash scripts for CHIP (headless mode) using wiptail
 
 #### CHIP flashing Instructions
 1. Connect the FEL - GND wire.
@@ -9,15 +9,20 @@ Various bash scripts for CHIP (headless mode)
 5. Power on the CHIP (hold button for 1 second).
 6. Wait for CHIP to boot.
 7. Launch putty and connect to COM port (find with Device Manager).
-8. Connect to you home wifi internet with ```nmcli d wifi connect "Netgear" password "12345678" ifname wlan0```
+8. Connect to you home wifi internet with ```nmtui``` or ```nmcli d wifi connect "Netgear" password "12345678" ifname wlan0```
 9. Use `ifconfig` to find the CHIP's IP address
 10. Exit putty
 11. You can now connect to the CHIP over the local network (using putty or `ssh`)
 
-#### Update
-```apt update; apt upgrade -y```
-
 #### Download and run Chip Scripts
+first become root:
 ```
-curl -sL https://raw.githubusercontent.com/norgeous/chip-scripts/master/cs.sh | bash -
+sudo su
 ```
+then download and run the script
+```
+curl -sL https://raw.githubusercontent.com/norgeous/chip-scripts/master/RUNME.sh | bash -
+```
+
+#### Description of each menu option
+###### First run
