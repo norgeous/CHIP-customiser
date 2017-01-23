@@ -49,3 +49,5 @@ cat <<EOF > /var/www/router.admin/index.html
 </body>
 </html>
 EOF
+
+systemctl restart nginx
