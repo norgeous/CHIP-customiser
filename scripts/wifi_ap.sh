@@ -79,4 +79,5 @@ mkdir -p /lib/dhcpcd/dhcpcd-hooks
 echo 'iptables-restore < /etc/iptables.ipv4.nat' | sudo tee /lib/dhcpcd/dhcpcd-hooks/70-ipv4-nat
 
 # restart networking to apply settings
+systemctl restart dnsmasq
 /etc/init.d/networking restart
