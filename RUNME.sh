@@ -11,7 +11,7 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 OPTIONS=$(whiptail --title "CHIP customiser" --checklist --separate-output \
-"Choose your options" 10 35 5 \
+"Choose your options" 12 33 6 \
 "first_run" "" OFF \
 "say" "" OFF \
 "bluetooth_speaker" "" OFF \

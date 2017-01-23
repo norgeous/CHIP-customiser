@@ -35,7 +35,8 @@ if [ $exitstatus = 0 ]; then
   usermod -l "$NEWUSER" -d "/home/$NEWUSER" -m "$CURRENTUSER"
   read -p "About to set passwd" -n 1 -r
   echo "Enter password for the user '$NEWUSER':"
-  passwd "$NEWUSER"
+  #passwd "$NEWUSER"
+  script --return -c "passwd $NEWUSER" /dev/null
   read -p "passwd set? " -n 1 -r
   CURRENTUSER=$NEWUSER
 fi
