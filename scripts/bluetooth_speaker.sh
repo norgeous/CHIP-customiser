@@ -50,7 +50,7 @@ pactl load-module module-bluetooth-policy
 pactl load-module module-switch-on-connect
 bt-device --set \$1 Trusted 1
 sleep 1
-{ echo "remove $1"; sleep 1; echo "scan on"; sleep 30; echo "connect $1"; sleep 10; } | bluetoothctl
+{ echo "remove \$1"; sleep 1; echo "scan on"; sleep 30; echo "connect \$1"; sleep 10; } | bluetoothctl
 sleep 5
 amixer set "Master" 50%
 say bluetooth ready
