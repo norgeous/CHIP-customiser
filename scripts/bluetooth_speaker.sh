@@ -44,18 +44,25 @@ EOF
 
 cat <<EOF > /usr/bin/speaker
 #!/bin/bash
-pulseaudio -D --realtime=false --high-priority=false --system --disallow-module-loading=false 
-pactl load-module module-bluetooth-discover 
-pactl load-module module-bluetooth-policy 
+pulseaudio -D --realtime=false --high-priority=false --system --disallow-module-loading=false
+pactl load-module module-bluetooth-discover
+pactl load-module module-bluetooth-policy
 pactl load-module module-switch-on-connect
 bt-device --set \$1 Trusted 1
 sleep 1
-echo "connect \$1" | bluetoothctl
-sleep 1
+{ echo "remove $1"; sleep 1; echo "scan on"; sleep 30; echo "connect $1"; sleep 10; } | bluetoothctl
+sleep 5
 amixer set "Master" 50%
 say bluetooth ready
 EOF
 chmod +x /usr/bin/speaker
+
+echo "Scanning for Bluetooth devices..."
+MACS=`hcitool scan | grep -v "Scanning ..." | sed 's/\s/ /g;s/$/ OFF/g'`
+echo "$MACS"
+MAC=$(whiptail --title "Connect a bluetooth device" --radiolist "Choose bluetooth device" 20 78 10 `echo "$MACS"` 3>&1 1>&2 2>&3)
+exitstatus=$?
+if [ $exitstatus = 0 ]; then
 
 cat <<EOF > /etc/systemd/system/speaker.service
 [Unit]
@@ -63,12 +70,15 @@ Description=Connect bluetooth speaker
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/speaker 58:56:00:00:23:C5
+ExecStart=/usr/bin/speaker $MAC
 Type=oneshot
 RemainAfterExit=yes
 
 [Install]
 WantedBy=multi-user.target
 EOF
+
 systemctl enable speaker
-systemctl start speaker
+systemctl restart speaker
+
+fi
