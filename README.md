@@ -21,7 +21,7 @@ sudo su
 ```
 then download and run the script
 ```
-curl -sL https://raw.githubusercontent.com/norgeous/chip-scripts/master/RUNME.sh | bash -
+bash <(curl -sL https://raw.githubusercontent.com/norgeous/chip-scripts/master/RUNME.sh)
 ```
 
 #### Description of each menu option
