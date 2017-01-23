@@ -31,9 +31,12 @@ CURRENTUSER=`cat /etc/passwd | grep 1000 | cut -d: -f1`
 NEWUSER=$(whiptail --title "User" --inputbox "\nEnter new username for UID 1000:" 9 40 $CURRENTUSER 3>&1 1>&2 2>&3)
 exitstatus=$?
 if [ $exitstatus = 0 ]; then
+  clear
   usermod -l "$NEWUSER" -d "/home/$NEWUSER" -m "$CURRENTUSER"
+  read -p "About to set passwd" -n 1 -r
   echo "Enter password for the user '$NEWUSER':"
   passwd "$NEWUSER"
+  read -p "passwd set? " -n 1 -r
   CURRENTUSER=$NEWUSER
 fi
 
