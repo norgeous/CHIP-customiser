@@ -11,7 +11,7 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 OPTIONS=$(whiptail --title "CHIP customiser" --checklist --separate-output \
-"Choose your options" 10 40 10 \
+"Choose your options" 10 35 5 \
 "first_run" "" OFF \
 "say" "" OFF \
 "bluetooth_speaker" "" OFF \
@@ -19,8 +19,8 @@ OPTIONS=$(whiptail --title "CHIP customiser" --checklist --separate-output \
 "pihole" "" OFF \
 "wifi_ap" "" OFF \
 "nodejs" "" OFF \
-"wetty" "Remote TTY terminal" OFF \
-"button_menu" "Add menu" OFF \
+"wetty" "" OFF \
+"button_menu" "" OFF \
 "nginx" "" OFF \
 3>&1 1>&2 2>&3)
 exitstatus=$?
