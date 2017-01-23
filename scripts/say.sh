@@ -14,8 +14,8 @@ if [ ! -L /tmp/stdout.wav ]; then
   ln -s "/dev/stdout" "/tmp/stdout.wav"
 fi
 say="\$@"
-echo "[say]: $say"
-pico2wave -l "en-GB" -w "/tmp/stdout.wav" ". . \$say . . " | play --volume 0.5 --type wav - > /dev/null
+echo "[say]: \$say"
+pico2wave -l "en-GB" -w "/tmp/stdout.wav" ". . \$say . . " | play --volume 0.5 --type wav - > /dev/null 2>&1
 EOF
 chmod +x /usr/bin/say
 
