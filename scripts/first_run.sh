@@ -31,12 +31,13 @@ CURRENTUSER=`cat /etc/passwd | grep 1000 | cut -d: -f1`
 NEWUSER=$(whiptail --title "User" --inputbox "\nEnter new username for UID 1000:" 9 40 $CURRENTUSER 3>&1 1>&2 2>&3)
 exitstatus=$?
 if [ $exitstatus = 0 ]; then
-  clear
   usermod -l "$NEWUSER" -d "/home/$NEWUSER" -m "$CURRENTUSER"
-  echo "Enter password for the user '$NEWUSER':"
-  passwd "$NEWUSER"
-  CURRENTUSER=$NEWUSER
 fi
+
+clear
+echo "Enter password for the user '$NEWUSER':"
+passwd "$NEWUSER"
+CURRENTUSER=$NEWUSER
 
 # disable root login, other user can still use sudo
 if (whiptail --title "Root Password" --yesno "Remove root password?" 8 40) then
