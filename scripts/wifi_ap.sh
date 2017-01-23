@@ -66,7 +66,6 @@ EOF
 cat <<EOF > /etc/dnsmasq_static_hosts.conf
 $NETWORK.1 router.admin
 EOF
-#systemctl start dnsmasq
 
 # enable ip4 nat forwarding
 sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/g' /etc/sysctl.conf
@@ -78,3 +77,6 @@ iptables -A FORWARD -i wlan1 -o wlan0 -j ACCEPT
 sh -c "iptables-save > /etc/iptables.ipv4.nat"
 mkdir -p /lib/dhcpcd/dhcpcd-hooks
 echo 'iptables-restore < /etc/iptables.ipv4.nat' | sudo tee /lib/dhcpcd/dhcpcd-hooks/70-ipv4-nat
+
+# restart networking to apply settings
+/etc/init.d/networking restart
