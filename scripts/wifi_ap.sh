@@ -80,4 +80,6 @@ echo 'iptables-restore < /etc/iptables.ipv4.nat' | sudo tee /lib/dhcpcd/dhcpcd-h
 
 # restart networking to apply settings
 systemctl restart dnsmasq
-/etc/init.d/networking restart
+systemctl restart networking
+
+echo "you may need to reboot!"
