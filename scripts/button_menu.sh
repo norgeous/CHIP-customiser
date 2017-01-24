@@ -70,8 +70,8 @@ board.on('ready', function() {
 })
 EOF
 rm -r /root/j5test/node_modules
-#sudo 
-npm install chip-io johnny-five
+sudo npm install chip-io johnny-five #needs sudo for some reason
+
 
 cat <<EOF > /etc/systemd/system/node-j5io.service
 [Unit]
