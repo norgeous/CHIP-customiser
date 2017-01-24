@@ -24,11 +24,14 @@ sleep 10
 
 # fix piholes dhcpcd
 systemctl start dhcpcd
-sed -i 's|\<  static ip_address=192.168.100.1/24\>|#  static ip_address=192.168.100.1/24|g' /etc/dhcpcd.conf
-sed -i 's|\<  static routers=192.168.100.1\>|#  static routers=192.168.100.1|g' /etc/dhcpcd.conf
-sed -i 's|\<  static domain_name_servers=192.168.100.1\>|#  static domain_name_servers=192.168.100.1|g' /etc/dhcpcd.conf
+sed -i 's|  static ip_address=.*||g' /etc/dhcpcd.conf
+sed -i 's|  static routers=.*||g' /etc/dhcpcd.conf
+sed -i 's|  static domain_name_servers=.*||g' /etc/dhcpcd.conf
 systemctl restart dhcpcd
+/etc/init.d/networking restart
 
 # change lighthttp port from 80 to 8080
 sed -i 's/\<server.port                 = 80\>/server.port                 = 8080/g' /etc/lighttpd/lighttpd.conf
 systemctl restart lighttpd
+
+echo "you may need to reboot!"
