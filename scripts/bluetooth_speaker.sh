@@ -44,15 +44,19 @@ EOF
 
 cat <<EOF > /usr/bin/speaker
 #!/bin/bash
+
 pulseaudio -D --realtime=false --high-priority=false --system --disallow-module-loading=false
 pactl load-module module-bluetooth-discover
 pactl load-module module-bluetooth-policy
 pactl load-module module-switch-on-connect
+
 bt-device --set \$1 Trusted 1
 sleep 1
 { sleep 1; echo "remove \$1"; sleep 1; echo "scan on"; sleep 30; echo "connect \$1"; sleep 10; } | bluetoothctl
 sleep 5
-amixer set "Master" 50%
+
+#amixer set "Master" 50%
+
 say bluetooth ready
 EOF
 chmod +x /usr/bin/speaker
@@ -81,5 +85,8 @@ EOF
 
 systemctl enable speaker
 systemctl restart speaker
+
+#pactl list short sinks
+#pacmd set-default-sink 1
 
 fi
