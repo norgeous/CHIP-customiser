@@ -14,7 +14,7 @@ Description=Wetty - Web TTY
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/wetty -p 3000
+ExecStart=/usr/bin/wetty -p 2222
 
 [Install]
 WantedBy=multi-user.target

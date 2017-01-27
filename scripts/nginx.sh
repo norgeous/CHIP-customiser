@@ -71,7 +71,7 @@ cat <<EOF > /var/www/router.admin/index.php
 </head>
 <body>
   <?php
-    \$openports = preg_split('/\s+/', trim(shell_exec('netstat -tulpn | grep LISTEN | sed "s|\s\s*| |g;s|0\.0\.0\.0:||g;s/:::||g;s|/| |g" | cut -d" " -f4 | sort -n | uniq')));
+    \$openports = preg_split('/\s+/', trim(shell_exec('netstat -tulpn | grep LISTEN | sed "s|\s\s*| |g;s|0\.0\.0\.0:||g;s|:::||g;s|/| |g" | cut -d" " -f4 | sort -n | uniq')));
     foreach (\$openports as \$port) {
       echo '<a href="/" onclick="javascript:event.target.port='.\$port.'">port '.\$port.'</a>';
     }
