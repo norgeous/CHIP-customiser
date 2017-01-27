@@ -53,7 +53,7 @@ server {
 server {
   listen              80;
   listen              [::]:80;
-  server_name         192.168.* router.admin;
+  server_name         router.admin 192.168.*;
   root                /var/www/router.admin;
   allow               192.168.0.0/16;
   deny                all;
@@ -76,14 +76,29 @@ cat <<EOF > /var/www/router.admin/index.php
 <!DOCTYPE html>
 <html>
 <head>
-  <title>router.admin</title>
-  <style>a{display:block; width:80%; text-align:center; font-size:30px; background:#bada55; box-sizing:border-box; padding:20px; margin:20px auto; text-decoration:none; color:white;}</style>
+  <title><?php echo gethostname(); ?> (<?php echo \$_SERVER['HTTP_HOST']; ?>)</title>
+  <style>
+  body{background:black; font-family:arial;}
+  h1{text-align:center; color:white;}
+  a{display:block; text-align:center; font-size:20px; background:#bada55; box-sizing:border-box; padding:10px; margin:5px auto; text-decoration:none; color:black;}
+  </style>
 </head>
 <body>
+  <h1><?php echo gethostname(); ?> (<?php echo \$_SERVER['HTTP_HOST']; ?>)</h1>
   <?php
     \$openports = preg_split('/\s+/', trim(shell_exec('netstat -tulpn | grep LISTEN | sed "s|\s\s*| |g;s|0\.0\.0\.0:||g;s|:::||g;s|/| |g" | cut -d" " -f4 | sort -n | uniq')));
     foreach (\$openports as \$port) {
-      echo '<a href="/" onclick="javascript:event.target.port='.\$port.'">port '.\$port.'</a>';
+      switch(\$port) {
+        case '22':        //ssh
+        case '53':        //dns
+        case '80':        //nginx
+        case '443':       //https
+          //do nothing
+          break;
+        default:
+          echo '<a href="/" onclick="javascript:event.target.port='.\$port.'">port '.\$port.'</a>';
+          break;
+      }
     }
   ?>
 </body>
