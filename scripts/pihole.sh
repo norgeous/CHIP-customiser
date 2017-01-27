@@ -18,7 +18,6 @@ read -rsp $'Press any key to continue...\n' -n 1 key
 clear
 
 curl -L https://install.pi-hole.net | bash
-#curl -L https://raw.githubusercontent.com/pi-hole/pi-hole/739aaafa9a7cf90fb0ab58af0f873b7cc8aec1f5/automated%20install/basic-install.sh | bash # Pi-hole v2.10.2
 
 sleep 10
 
@@ -27,11 +26,10 @@ systemctl start dhcpcd
 sed -i 's|  static ip_address=.*||g' /etc/dhcpcd.conf
 sed -i 's|  static routers=.*||g' /etc/dhcpcd.conf
 sed -i 's|  static domain_name_servers=.*||g' /etc/dhcpcd.conf
-systemctl restart dhcpcd
-/etc/init.d/networking restart
 
 # change lighthttp port from 80 to 8080
 sed -i 's/\<server.port                 = 80\>/server.port                 = 8080/g' /etc/lighttpd/lighttpd.conf
-systemctl restart lighttpd
 
+# restart services
+systemctl restart networking dhcpcd dnsmasq lighttpd
 echo "you may need to reboot!"

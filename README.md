@@ -21,13 +21,34 @@ bash <(curl -sL https://raw.githubusercontent.com/norgeous/chip-scripts/master/R
 ```
 
 #### Description of each menu option
+
 ###### first_run
+Change default hostname, username and password, disable root password, etc.
+
 ###### pihole
+Network wide adblocker using DNS installed to port 8080. Works well with wifi_ap
+
 ###### wetty
+installs remote tty through npm and sets a systemd service on port 3000.
+
 ###### motioneye
+Cheap CCTV camera
+
 ###### bluetooth_speaker
 connect a blutooth speaker and setup a systemd to reconnect it on reboot.
-
 `systemctl restart speaker`
 
-###### 
+###### button_menu
+Use chip's built-in button and status led to control chip.
+
+###### nginx
+Port 80 jump off point for other services. http://router.admin/
+
+###### wifi_ap
+Broadcast wifi ap on wlan1, causes chip to act as router if wlan0 is connected to the internet
+
+###### nodejs
+installs node js 7
+
+###### say
+install android local tts engine and create wrapper for `say` command

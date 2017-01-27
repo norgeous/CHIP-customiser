@@ -8,7 +8,7 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-apt install -y pulseaudio-module-bluetooth bluez-tools #libbluetooth-dev
+apt install -y pulseaudio-module-bluetooth bluez-tools
 
 sed -i "s/load-module module-native-protocol-unix.*/load-module module-native-protocol-unix auth-anonymous=1/g" "/etc/pulse/system.pa"
 
