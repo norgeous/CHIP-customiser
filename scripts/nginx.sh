@@ -31,33 +31,43 @@ sed -i 's/# server_tokens off;/server_tokens off;/g' /etc/nginx/nginx.conf
 
 # config default site with proxypass to local services
 cat <<EOF > /etc/nginx/sites-enabled/default
+
+# proxy all connections from 80 to 8080 for pihole (except for the domains listed below)
 server {
-
-    server_name             "";
-    root                    /var/www/router.admin;
-    listen                  80 default_server;
-    listen                  [::]:80 default_server;
-    allow                   192.168.0.0/16;
-    deny                    all;
-    autoindex               on;
-    location ~ \.php$ {
-      include snippets/fastcgi-php.conf;
-      fastcgi_pass unix:/run/php/php7.0-fpm.sock;
-    }
-
-    location ~ /\.ht {
-      deny all;
-    }
-
-    #location /pihole/ {
-    #    proxy_set_header        Host 127.0.0.1;
-    #    proxy_set_header        X-Real-IP \$remote_addr;
-    #    proxy_set_header        X-Forwarded-For \$proxy_add_x_forwarded_for;
-    #    proxy_set_header        X-Forwarded-Proto \$scheme;
-    #    proxy_pass              http://localhost:8080/admin/;
-    #}
-
+  listen              80 default_server;
+  listen              [::]:80 default_server;
+  #listen              443 ssl;
+  #listen              [::]:443 ssl;
+  server_name         "";
+  allow               192.168.0.0/16;
+  deny                all;
+  location / {
+    proxy_set_header    Host \$host;
+    proxy_set_header    X-Real-IP \$remote_addr;
+    proxy_set_header    X-Forwarded-For \$proxy_add_x_forwarded_for;
+    proxy_set_header    X-Forwarded-Proto \$scheme;
+    proxy_pass          http://127.0.0.1:8080;
+  }
 }
+
+server {
+  listen              80;
+  listen              [::]:80;
+  server_name         192.168.* router.admin;
+  root                /var/www/router.admin;
+  allow               192.168.0.0/16;
+  deny                all;
+  autoindex           on;
+  index               index.php;
+  location ~ \.php$ {
+    include             snippets/fastcgi-php.conf;
+    fastcgi_pass        unix:/run/php/php7.0-fpm.sock;
+  }
+  location ~ /\.ht {
+    deny                all;
+  }
+}
+
 EOF
 
 # router homepage
@@ -81,7 +91,3 @@ cat <<EOF > /var/www/router.admin/index.php
 EOF
 
 systemctl restart nginx
-
-
-#list open ports
-netstat -tulpn | grep LISTEN | sed "s/\s\s*/ /g;s/0\.0\.0\.0://g;s/::://g;s|/| |g" | cut -d" " -f4,8 | sort -n | uniq
