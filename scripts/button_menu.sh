@@ -15,6 +15,25 @@ var chipio = require('chip-io')
 var fs = require('fs')
 var exec = require('child_process').exec
 exec('echo none | tee "/sys/class/leds/chip:white:status/trigger"')
+var menu = [
+  {
+    label:'menu',
+    cmd:'say nothing'
+  },
+  {
+    label:'uptime',
+    cmd:'say `date "+%I:%M %p, %A, %e %B %Y"`. `uptime -p`'
+  },
+  {
+    label:'reboot',
+    cmd:'init 6'
+  },
+  {
+    label:'shutdown',
+    cmd:'init 0'
+  },
+]
+
 var board = new five.Board({
   repl: false,
   debug: false,
@@ -22,25 +41,6 @@ var board = new five.Board({
 })
 board.on('ready', function() {
   var statusLed = new chipio.StatusLed()
-  function say(text, cb, lang='en-GB') {
-    //statusLed.on()
-    //fs.symlink('/dev/stdout', '/tmp/stdout.wav', function(err) {
-    //  exec('pico2wave -l '+lang+' -w '+'/tmp/stdout.wav'+' ". '+text.toString().replace(/"/g,"'")+'" | aplay', function(err, stdout, stderr) {
-    //    console.log(stderr)
-    //    fs.unlink('/tmp/stdout.wav',function(err){
-    //      statusLed.off()
-    //      cb && cb(err)
-    //    })
-    //  })
-    //})
-    
-    statusLed.on()
-    exec('say '+text.toString(), function(err, stdout, stderr) {
-      statusLed.off()
-      cb && cb(err)
-    })
-  }
-  say('node ready')
   var onboardButton = new chipio.OnboardButton()
   var press_timeout
   var press_timeout_length = 1000
@@ -51,18 +51,12 @@ board.on('ready', function() {
     press_count++
     clearTimeout(press_timeout)
     press_timeout = setTimeout(function(){
-      switch(press_count){
-        case 1: say('1. menu. 2. uptime. 3. reboot. 4. shutdown.'); break;
-        case 2:
-          exec('date "+%I:%M %p, %A, %e %B %Y"',function(err,date,stderr){
-            exec('uptime -p',function(err,uptime,stderr){
-              say('2. '+date+', the device has been powered for '+uptime.replace('up ',''))
-            })
-          })
-        break;
-        case 3: say('3. rebooting',     function(){exec('init 6')}); break;
-        case 4: say('4. shutting down', function(){exec('init 0')}); break;
-        default: say(press_count+'. unknown command'); break;
+      if(press_count===1){
+        exec('say '+menu.map(function(t,i){return (i+1)+'. '+t.label+'.'}).join(' '),function(err,stdout,stderr){})
+      } else if(press_count <= menu.length){
+        exec('say '+press_count+'. '+menu[press_count-1].label+'.; '+menu[press_count-1].cmd,function(err,stdout,stderr){})
+      } else {
+        exec('say '+press_count+'. unknown command.',function(err,stdout,stderr){})
       }
       press_count = 0
     }, press_timeout_length)
