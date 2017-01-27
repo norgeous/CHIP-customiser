@@ -28,6 +28,9 @@ Change default hostname, username and password, disable root password, etc.
 ###### nginx
 Port 80 jump off point for other services (lists all open ports). Can be accesed via http://router.admin/
 
+###### wifi_ap
+Broadcast wifi ap on wlan1, causes chip to act as router if wlan0 is connected to the internet
+
 ###### pihole
 Network wide adblocker using DNS installed to port 8080. Works well with wifi_ap
 
@@ -43,10 +46,6 @@ connect a blutooth speaker and setup a systemd to reconnect it on reboot.
 
 ###### button_menu
 Use chip's built-in button and status led to control chip.
-
-
-###### wifi_ap
-Broadcast wifi ap on wlan1, causes chip to act as router if wlan0 is connected to the internet
 
 ###### nodejs
 installs node js 7
