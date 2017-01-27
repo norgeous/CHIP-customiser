@@ -12,6 +12,7 @@ fi
 
 OPTIONS=$(whiptail --title "CHIP customiser" --checklist --separate-output \
 "Choose your options" 12 33 6 \
+"update" "" OFF \
 "first_run" "" OFF \
 "nginx" "" OFF \
 "wifi_ap" "" OFF \
