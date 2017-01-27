@@ -8,13 +8,6 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-# Update
-if (whiptail --title "Update" --yesno "It's recommended to perform a system update,\ndo you want to do this now?\n(internet connection required)" 8 40) then
-  apt update
-  apt upgrade -y
-  apt-get autoremove --purge -y
-fi
-
 # hostname
 CURRENTHOST=`hostname`
 NEWHOST=$(whiptail --title "Hostname" --inputbox "\nEnter new hostname:" 9 40 $CURRENTHOST 3>&1 1>&2 2>&3)

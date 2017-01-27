@@ -22,6 +22,9 @@ bash <(curl -sL https://raw.githubusercontent.com/norgeous/chip-scripts/master/R
 
 #### Description of each menu option
 
+##### update
+Performs a system update, upgrade and autoremove
+
 ##### first_run
 Change default hostname, username and password, disable root password, etc.
 
