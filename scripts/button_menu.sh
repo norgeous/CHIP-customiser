@@ -22,7 +22,7 @@ var menu = [
   },
   {
     label:'uptime',
-    cmd:'say `date "+%I:%M %p, %A, %e %B %Y"`. `uptime -p`'
+    cmd:'say \`date "+%I:%M %p, %A, %e %B %Y"\`. \`uptime -p\`'
   },
   {
     label:'reboot',
@@ -32,8 +32,11 @@ var menu = [
     label:'shutdown',
     cmd:'init 0'
   },
+  {
+    label:'temperature',
+    cmd:'bin=\$(( \$((\`/usr/sbin/i2cget -y -f 0 0x34 0x5e\` << 4)) | \$((\`/usr/sbin/i2cget -y -f 0 0x34 0x5f\` & 0x0F)) )); cel=\`echo \$bin | awk \'{printf("%.0f", (\$1/10) - 144.7)}\'\`; say "\$cel degrees celcius"'
+  },
 ]
-
 var board = new five.Board({
   repl: false,
   debug: false,
@@ -43,7 +46,7 @@ board.on('ready', function() {
   var statusLed = new chipio.StatusLed()
   var onboardButton = new chipio.OnboardButton()
   var press_timeout
-  var press_timeout_length = 1000
+  var press_timeout_length = 1200
   var press_count = 0
   onboardButton.on('up', function() {
     statusLed.on()
