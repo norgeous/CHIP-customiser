@@ -1,8 +1,6 @@
 #!/bin/bash
 
-# CHIP customiser / first run
-# Author: norgeous
-# tested with 4.4.13-ntc-mlc headless image
+# CHIP customiser
 
 # must run as ROOT
 if [[ $EUID -ne 0 ]]; then
@@ -10,8 +8,8 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-OPTIONS=$(whiptail --title "CHIP customiser" --checklist --separate-output \
-"Choose your options" 12 33 6 \
+OPTIONS=$(whiptail --title "CHIP customiser v0.1" --checklist --separate-output \
+"\nChoose your options" 15 33 6 \
 "update" "" OFF \
 "first_run" "" OFF \
 "nginx" "" OFF \

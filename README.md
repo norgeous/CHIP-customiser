@@ -1,5 +1,5 @@
 # Chip Customiser
-Various bash scripts for CHIP (headless mode) using whiptail
+Various bash scripts for CHIP using whiptail menus, tested with 4.4.13-ntc-mlc headless image
 
 #### CHIP flashing Instructions
 1. Connect the FEL - GND wire.
