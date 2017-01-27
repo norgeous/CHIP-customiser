@@ -13,15 +13,15 @@ fi
 OPTIONS=$(whiptail --title "CHIP customiser" --checklist --separate-output \
 "Choose your options" 12 33 6 \
 "first_run" "" OFF \
+"nginx" "" OFF \
+"wifi_ap" "" OFF \
+"pihole" "" OFF \
+"motioneye" "" OFF \
 "say" "" OFF \
 "bluetooth_speaker" "" OFF \
-"motioneye" "" OFF \
-"pihole" "" OFF \
-"wifi_ap" "" OFF \
 "nodejs" "" OFF \
 "wetty" "" OFF \
 "button_menu" "" OFF \
-"nginx" "" OFF \
 3>&1 1>&2 2>&3)
 exitstatus=$?
 if [ $exitstatus = 0 ]; then
