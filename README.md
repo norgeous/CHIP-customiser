@@ -29,26 +29,26 @@ Change default hostname, username and password, disable root password, etc.
 Port 80 jump off point for other services (lists all open ports). Can be accesed via http://router.admin/
 
 ##### wifi_ap
-Broadcast wifi ap on wlan1, causes chip to act as router if wlan0 is connected to the internet
+Broadcast wifi ap on wlan1, causes chip to act as router if wlan0 is connected to the internet.
 
 ##### pihole
-Network wide adblocker using DNS installed to port 8080. Works well with wifi_ap
-
-##### wetty
-installs remote tty through npm and sets a systemd service on port 3000.
+Network wide adblocker using DNS installed to port 8080. Works well with wifi_ap.
 
 ##### motioneye
-Cheap CCTV camera
+Cheap CCTV camera.
+
+##### say
+install android local tts engine and create wrapper for `say` command.
 
 ##### bluetooth_speaker
 connect a blutooth speaker and setup a systemd to reconnect it on reboot.
-`systemctl restart speaker`
-
-##### button_menu
-Use chip's built-in button and status led to control chip.
+use `systemctl restart speaker` to reconnect speaker manually.
 
 ##### nodejs
 installs node js 7
 
-##### say
-install android local tts engine and create wrapper for `say` command
+##### wetty
+installs browser acessable tty through npm and sets a systemd service on port 2222.
+
+##### button_menu
+Use chip's built-in button and status led to control chip.
