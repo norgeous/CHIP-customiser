@@ -57,7 +57,9 @@ bt-device --set \$1 Trusted 1
 
 amixer set "Master" 50%
 
-say bluetooth ready
+if which say >/dev/null; then
+  say bluetooth ready
+fi
 EOF
 chmod +x /usr/bin/speaker
 
@@ -86,7 +88,7 @@ EOF
 systemctl enable speaker
 systemctl restart speaker
 
+fi
+
 #pactl list short sinks
 #pacmd set-default-sink 1
-
-fi

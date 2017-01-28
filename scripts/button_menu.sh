@@ -6,6 +6,12 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
+if ! which node >/dev/null; then
+
+  echo "nodejs is not installed!"
+
+else
+
 # needs fixing (put it in a github repo)
 mkdir /root/j5test
 cd /root/j5test
@@ -85,3 +91,5 @@ WantedBy=multi-user.target
 EOF
 systemctl enable node-j5io
 systemctl start node-j5io
+
+fi

@@ -9,10 +9,10 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 OPTIONS=$(whiptail --title "CHIP customiser v0.1" --checklist --separate-output \
-"\nChoose your options" 15 33 6 \
+"\nChoose your options, use Spacebar to select multiple options then press Enter." 16 33 6 \
 "update" "" OFF \
 "first_run" "" OFF \
-"nginx" "" OFF \
+"nginx_router" "" OFF \
 "wifi_ap" "" OFF \
 "pihole" "" OFF \
 "motioneye" "" OFF \
@@ -25,6 +25,6 @@ OPTIONS=$(whiptail --title "CHIP customiser v0.1" --checklist --separate-output 
 exitstatus=$?
 if [ $exitstatus = 0 ]; then
   for OPTION in $OPTIONS; do
-    bash <(curl -sL https://raw.githubusercontent.com/norgeous/chip-scripts/master/scripts/$OPTION.sh)
+    bash <(curl -sL https://rawgit.com/norgeous/chip-scripts/master/$OPTION.sh)
   done
 fi

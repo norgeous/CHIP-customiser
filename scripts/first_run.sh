@@ -38,10 +38,14 @@ if (whiptail --title "Root Password" --yesno "Remove root password?" 8 40) then
 fi
 
 # Locale amd Timezone
-if (whiptail --title "Locale amd Timezone" --yesno "Install and configure Locales amd Timezones?" 8 40) then
-  apt install -y locales
-  dpkg-reconfigure locales
+if (whiptail --title "Locale amd Timezone" --yesno "Install and configure Timezones and Locales?" 8 40) then
   dpkg-reconfigure tzdata
+  if [ -e "/etc/apt/sources.list.d/stretch.list" ]; then
+    apt install -t stretch -y locales
+  else
+    apt install -y locales
+  fi
+  dpkg-reconfigure locales
 fi
 
 # Swappiness

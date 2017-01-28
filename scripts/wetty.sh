@@ -6,6 +6,12 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
+if ! which node >/dev/null; then
+
+  echo "nodejs is not installed!"
+
+else
+
 npm install wetty -g
 
 cat <<EOF > /etc/systemd/system/wetty.service
@@ -22,3 +28,5 @@ EOF
 
 systemctl enable wetty
 systemctl start wetty
+
+fi
