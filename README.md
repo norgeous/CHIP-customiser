@@ -1,6 +1,7 @@
 # Chip Customiser
 Various bash scripts for CHIP using whiptail menus, tested with 4.4.13-ntc-mlc headless image.
 
+![ScreenShot](preview.png)
 
 ## Run Chip Scripts
 Login as `root` (or `sudo su`) and run with:
