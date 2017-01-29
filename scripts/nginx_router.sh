@@ -94,8 +94,8 @@ switch(\$_GET['cmd']){
 </head>
 <body>
   <h1><?php echo gethostname(); ?> (<?php echo \$_SERVER['HTTP_HOST']; ?>)</h1>
-  <a href="/?cmd=reboot">reboot</a>
-  <a href="/?cmd=shutdown">shutdown</a>
+  <a href="/?cmd=reboot" target="_blank">reboot</a>
+  <a href="/?cmd=shutdown" target="_blank">shutdown</a>
   <?php
     \$openports = preg_split('/\s+/', trim(shell_exec('netstat -tulpn | grep LISTEN | sed "s|\s\s*| |g;s|0\.0\.0\.0:||g;s|:::||g;s|/| |g" | cut -d" " -f4 | sort -n | uniq')));
     foreach (\$openports as \$port) {
