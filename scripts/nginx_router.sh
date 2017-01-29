@@ -73,18 +73,29 @@ EOF
 # router homepage
 mkdir /var/www/router.admin
 cat <<EOF > /var/www/router.admin/index.php
-<!DOCTYPE html>
+<?php
+switch(\$_GET['cmd']){
+  case 'reboot':
+    shell_exec('sudo reboot');
+    break;
+  case 'shutdown':
+    shell_exec('sudo shutdown -h now');
+    break;
+}
+?><!DOCTYPE html>
 <html>
 <head>
   <title><?php echo gethostname(); ?> (<?php echo \$_SERVER['HTTP_HOST']; ?>)</title>
   <style>
-  body{background:black; font-family:arial;}
-  h1{text-align:center; color:white;}
+  body{background:black; font-family:arial; color:white;}
+  h1{text-align:center;}
   a{display:block; text-align:center; font-size:20px; background:#bada55; box-sizing:border-box; padding:10px; margin:5px auto; text-decoration:none; color:black;}
   </style>
 </head>
 <body>
   <h1><?php echo gethostname(); ?> (<?php echo \$_SERVER['HTTP_HOST']; ?>)</h1>
+  <a href="/?cmd=reboot">reboot</a>
+  <a href="/?cmd=shutdown">shutdown</a>
   <?php
     \$openports = preg_split('/\s+/', trim(shell_exec('netstat -tulpn | grep LISTEN | sed "s|\s\s*| |g;s|0\.0\.0\.0:||g;s|:::||g;s|/| |g" | cut -d" " -f4 | sort -n | uniq')));
     foreach (\$openports as \$port) {
@@ -96,13 +107,18 @@ cat <<EOF > /var/www/router.admin/index.php
           //do nothing
           break;
         default:
-          echo '<a href="/" onclick="javascript:event.target.port='.\$port.'">port '.\$port.'</a>';
+          echo '<a href="<?php echo \$_SERVER['HTTP_HOST']; ?>:\$port.'">port '.\$port.'</a>';
           break;
       }
     }
   ?>
 </body>
 </html>
+EOF
+
+# sudoers for www-data access to shutdown and reboot
+cat <<EOF > /etc/sudoers.d/nginx
+www-data ALL=NOPASSWD: /sbin/poweroff, /sbin/reboot, /sbin/shutdown
 EOF
 
 systemctl restart nginx
