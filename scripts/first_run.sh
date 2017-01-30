@@ -27,10 +27,13 @@ if [ $exitstatus = 0 ]; then
   usermod -l "$NEWUSER" -d "/home/$NEWUSER" -m "$CURRENTUSER"
 fi
 
-clear
-echo "Enter password for the user '$NEWUSER':"
-passwd "$NEWUSER"
-CURRENTUSER=$NEWUSER
+# change 1000 users password
+if (whiptail --title "$NEWUSER Password" --yesno "Change $NEWUSER password?" 8 40) then
+  clear
+  echo "Enter password for the user '$NEWUSER':"
+  passwd "$NEWUSER"
+  CURRENTUSER=$NEWUSER
+fi
 
 # disable root login, other user can still use sudo
 if (whiptail --title "Root Password" --yesno "Remove root password?" 8 40) then
@@ -47,26 +50,18 @@ fi
 # Swappiness
 if (whiptail --title "Swappiness" --yesno "Protect NAND by reducing swappiness to 10?" 8 40) then
   if [ $(cat /etc/sysctl.conf | grep vm.swappiness | wc -l) -eq 0 ]; then
-
 cat <<EOF >> /etc/sysctl.conf
 #
 # protect NAND by reducing swappiness to 10
 vm.swappiness = 10
 EOF
-
   fi
   echo 10 > /proc/sys/vm/swappiness
 fi
 
 # Enable ll command
-if (whiptail --title "Enable ll command" --yesno "Enable ll command?" 8 40) then
-
-  # ll for root
-  sed -i "s/# export LS_OPTIONS='--color=auto'/export LS_OPTIONS='--color=auto -haX --group-directories-first'/g" "/root/.bashrc"
-  sed -i "s/# alias ll/alias ll/g" "/root/.bashrc"
-
-  # ll for user 1000
-  sed -i "s/# export LS_OPTIONS='--color=auto'/export LS_OPTIONS='--color=auto -haX --group-directories-first'/g" "/home/$CURRENTUSER/.bashrc"
-  sed -i "s/# alias ll/alias ll/g" "/home/$CURRENTUSER/.bashrc"
-
+if (whiptail --title "Enable ll command" --yesno "Alias\nls --color=auto -haXl --group-directories-first\nto\nll\ncommand?" 10 40) then
+  if [ $(cat /etc/bash.bashrc | grep "alias ll" | wc -l) -eq 0 ]; then
+    echo "alias ll='ls --color=auto -haXl --group-directories-first'" | tee -a /etc/bashrc
+  fi
 fi
