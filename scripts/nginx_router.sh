@@ -96,4 +96,4 @@ cat <<EOF > /etc/sudoers.d/nginx
 www-data ALL=NOPASSWD: /sbin/poweroff, /sbin/reboot, /sbin/shutdown, /usr/bin/lsof
 EOF
 
-systemctl restart nginx
+systemctl restart nginx php5-fpm
