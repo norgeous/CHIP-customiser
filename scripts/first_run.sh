@@ -21,18 +21,18 @@ fi
 
 # change 1000 username and set new password
 CURRENTUSER=`cat /etc/passwd | grep 1000 | cut -d: -f1`
-NEWUSER=$(whiptail --title "User" --inputbox "\nEnter new username for UID 1000:" 9 40 $CURRENTUSER 3>&1 1>&2 2>&3)
+NEWNAME=$(whiptail --title "User" --inputbox "\nEnter new username for UID 1000:" 9 40 $CURRENTUSER 3>&1 1>&2 2>&3)
 exitstatus=$?
 if [ $exitstatus = 0 ]; then
-  usermod -l "$NEWUSER" -d "/home/$NEWUSER" -m "$CURRENTUSER"
+  usermod -l "$NEWNAME" -d "/home/$NEWNAME" -m "$CURRENTUSER"
+  CURRENTUSER=$NEWNAME
 fi
 
 # change 1000 users password
-if (whiptail --title "$NEWUSER Password" --yesno "Change $NEWUSER password?" 8 40) then
+if (whiptail --title "$CURRENTUSER Password" --yesno "Change $CURRENTUSER password?" 8 40) then
   clear
-  echo "Enter password for the user '$NEWUSER':"
-  passwd "$NEWUSER"
-  CURRENTUSER=$NEWUSER
+  echo "Enter password for the user '$CURRENTUSER':"
+  passwd "$CURRENTUSER"
 fi
 
 # disable root login, other user can still use sudo
