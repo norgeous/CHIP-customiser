@@ -60,7 +60,7 @@ EOF
 fi
 
 # Enable ll command
-if (whiptail --title "Enable ll command" --yesno "Alias\nls --color=auto -haXl --group-directories-first\nto\nll\ncommand?" 10 40) then
+if (whiptail --title "Enable ll command" --yesno "Create global alias for the ll command?" 8 40) then
   if [ $(cat /etc/bash.bashrc | grep "alias ll" | wc -l) -eq 0 ]; then
     echo "alias ll='ls --color=auto -haXl --group-directories-first'" | tee -a /etc/bashrc
   fi
