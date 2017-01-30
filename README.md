@@ -1,14 +1,15 @@
 # CHIP Customiser
-Various bash scripts for CHIP using whiptail menus, tested with 4.4.13-ntc-mlc headless image.
+Various bash scripts for NTC CHIP using whiptail menus, tested with 4.4.13-ntc-mlc headless image.
 
 ![ScreenShot](preview.png)
 
 ## Run
 Login as `root` (or `sudo su`) and run with:
 ```
-bash <(curl -sL https://rawgit.com/norgeous/chip-scripts/master/RUNME.sh)
+bash <(curl -sL https://rawgit.com/norgeous/CHIP-customiser/master/RUNME.sh)
 ```
 
+## What options are available
 
 ### update
 Performs a system update, upgrade and autoremove.

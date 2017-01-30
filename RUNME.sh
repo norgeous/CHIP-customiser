@@ -25,6 +25,6 @@ OPTIONS=$(whiptail --title "CHIP customiser v0.1" --checklist --separate-output 
 exitstatus=$?
 if [ $exitstatus = 0 ]; then
   for OPTION in $OPTIONS; do
-    bash <(curl -sL https://rawgit.com/norgeous/chip-scripts/master/scripts/$OPTION.sh)
+    bash <(curl -sL https://rawgit.com/norgeous/CHIP-customiser/master/scripts/$OPTION.sh)
   done
 fi
