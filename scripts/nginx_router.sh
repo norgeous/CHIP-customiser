@@ -6,28 +6,7 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-# debian 9 stretch repo (contains php7 arm)
-#echo "deb http://ftp.us.debian.org/debian stretch main contrib non-free" | tee /etc/apt/sources.list.d/stretch.list
-
-# pin jessie (prevent auto update to stretch packages)
-#cat <<EOF > /etc/apt/preferences
-#Package: *
-#Pin: release n=jessie
-#Pin-Priority: 600
-#EOF
-
-# update (needed after adding the stretch repo)
-#apt update
-
-# list open files (for port grabbing later)
-apt install -y lsof
-
-# php (from debian 9 stretch repo)
-#apt install -t stretch -y php-fpm php-xml
-apt install -y php5-fpm
-
-# nginx
-apt install -y nginx
+apt install -y lsof php5-fpm nginx
 
 # nginx config
 sed -i 's/# server_names_hash_bucket_size 64;/server_names_hash_bucket_size 64;/g' /etc/nginx/nginx.conf
@@ -64,9 +43,11 @@ server {
   autoindex           on;
   index               index.php;
   location ~ \.php$ {
-    #include             snippets/fastcgi-php.conf;
-    include             fastcgi_params;
+    try_files           \$uri =404;
     fastcgi_pass        unix:/var/run/php5-fpm.sock;
+    fastcgi_index       index.php;
+    fastcgi_param       SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
+    include             fastcgi_params;
   }
   location ~ /\.ht {
     deny                all;
