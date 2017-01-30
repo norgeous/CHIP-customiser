@@ -40,14 +40,14 @@ if (whiptail --title "Root Password" --yesno "Remove root password?" 8 40) then
   passwd -dl root
 fi
 
-# Locale amd Timezone
-if (whiptail --title "Locale amd Timezone" --yesno "Install and configure Timezones and Locales?" 8 40) then
+# Locale and Timezone
+if (whiptail --title "Locale and Timezone" --yesno "Install and configure Locale and Timezones?" 8 40) then
   apt install -y locales
   dpkg-reconfigure locales
   dpkg-reconfigure tzdata
 fi
 
-# Swappiness
+# Reduce swappiness
 if (whiptail --title "Swappiness" --yesno "Protect NAND by reducing swappiness to 10?" 8 40) then
   if [ $(cat /etc/sysctl.conf | grep vm.swappiness | wc -l) -eq 0 ]; then
 cat <<EOF >> /etc/sysctl.conf

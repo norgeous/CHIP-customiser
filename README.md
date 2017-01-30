@@ -11,39 +11,41 @@ bash <(curl -sL https://rawgit.com/norgeous/CHIP-customiser/master/RUNME.sh)
 
 ## What options are available
 
-### update
+### update.sh
 Performs a system update, upgrade and autoremove.
 
-### first_run
-Change default hostname, username and password, disable root password, etc.
+### first_run.sh
+Change default hostname, username and password, disable root password, configure Locale and Timezone, reduce swappiness (to protect NAND) and enables the `ll` command.
 
-### nginx_router
-Port 80 jump off point for other services (lists all open ports). Can be accesed via http://router.admin/ when using wifi_ap.
+### nginx_router.sh
+Sets up `nginx` and `php-fpm` on port 80 as a jump off point for other services.
+The page lists all open ports and provides reboot and shutdown buttons.
+Can be accesed via http://router.admin/ when using wifi_ap.
 
-### wifi_ap
+### wifi_ap.sh
 Broadcast wifi ap on wlan1, causes chip to act as router (if wlan0 is connected to the internet).
 
-### pihole
+### pihole.sh
 Network wide adblocker using DNS installed to port 8080. Works well with wifi_ap and nginx_router.
 
-### motioneye
+### motioneye.sh
 Cheap CCTV camera.
 
-### say
-install android local tts engine and create wrapper for `say` command.
+### say.sh
+Install Android's local TTS engine and create wrapper for `say` command.
 
-### bluetooth_speaker
-connect a blutooth speaker and setup a systemd to reconnect it on reboot.
-use `systemctl restart speaker` to reconnect speaker manually.
+### bluetooth_speaker.sh
+Connect a blutooth speaker and setup a systemd to reconnect it on reboot.
+Use `systemctl restart speaker` to reconnect speaker manually.
 
-### nodejs
-installs node js 7
+### nodejs.sh
+Install node js 7
 
-### wetty
-installs browser acessable tty through npm and sets a systemd service on port 2222.
+### wetty.sh
+Installs browser acessable tty through npm and sets a systemd service on port 2222.
 
-### button_menu
-Use chip's built-in button and status led to control chip.
+### button_menu.sh
+Use chip's built-in button and status led to control chip (WIP).
 
 
 ## CHIP flashing quick reference
