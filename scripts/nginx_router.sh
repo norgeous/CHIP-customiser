@@ -24,7 +24,7 @@ apt install -y lsof
 
 # php (from debian 9 stretch repo)
 #apt install -t stretch -y php-fpm php-xml
-apt install -y php-fpm php-xml
+apt install -y php5-fpm
 
 # nginx
 apt install -y nginx
@@ -64,8 +64,9 @@ server {
   autoindex           on;
   index               index.php;
   location ~ \.php$ {
-    include             snippets/fastcgi-php.conf;
-    fastcgi_pass        unix:/run/php/php7.0-fpm.sock;
+    #include             snippets/fastcgi-php.conf;
+    include             fastcgi_params;
+    fastcgi_pass        unix:/var/run/php5-fpm.sock;
   }
   location ~ /\.ht {
     deny                all;
