@@ -81,11 +81,9 @@ bash <(curl -sL https://rawgit.com/norgeous/CHIP-customiser/master/RUNME.sh)
 5. Power on the CHIP (hold button for 1 second).
 6. Wait for CHIP to boot.
 7. Launch putty and connect to COM port (find with Device Manager).
-8. Connect to you home wifi internet with either of these:
-```
-nmtui
-nmcli d wifi connect "Netgear" password "12345678" ifname wlan0
-```
+8. Connect to your home WIFI internet with either of these:
+  * `nmtui`
+  * `nmcli d wifi connect "Netgear" password "12345678" ifname wlan0`
 9. Use `ifconfig` to find the CHIP's IP address
 10. Exit putty
 11. You can now connect to the CHIP over the local network (using putty or `ssh`)
