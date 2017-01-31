@@ -21,7 +21,7 @@ fi
 
 # change 1000 username and set new password
 USER1000=`cat /etc/passwd | grep 1000 | cut -d: -f1`
-NEWNAME=$(whiptail --title "User" --inputbox "\nEnter new username for UID 1000:" 15 46 $USER1000 3>&1 1>&2 2>&3)
+NEWNAME=$(whiptail --title "Username for user 1000" --inputbox "\nEnter new username for UID 1000:" 15 46 $USER1000 3>&1 1>&2 2>&3)
 exitstatus=$?
 if [ $exitstatus = 0 ]; then
   usermod -l "$NEWNAME" -d "/home/$NEWNAME" -m "$USER1000"
