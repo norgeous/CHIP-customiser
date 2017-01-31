@@ -6,4 +6,6 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-echo none | tee "/sys/class/leds/chip:white:status/trigger"
+if (whiptail --title "Status LED" --yesno "Disable status LED blinking? (temporary)" 15 46) then
+  echo none | tee "/sys/class/leds/chip:white:status/trigger"
+fi
