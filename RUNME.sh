@@ -22,6 +22,7 @@ OPTIONS=$(whiptail --title "CHIP customiser v0.1" --checklist --separate-output 
 "install_button_menu.sh" "" OFF \
 "configure_wifi_ap.sh" "" OFF \
 "configure_bluetooth_speaker.sh" "" OFF \
+"configure_status_led.sh" "" OFF \
 3>&1 1>&2 2>&3)
 exitstatus=$?
 if [ $exitstatus = 0 ]; then
