@@ -68,7 +68,7 @@ bash <(curl -sL https://rawgit.com/norgeous/CHIP-customiser/master/RUNME.sh)
 
 ### configure_bluetooth_speaker.sh
 * Connect a bluetooth speaker.
-* Setup `speaker` systemd (reconnects speaker on boot).
+* Setup `speaker` systemd (to reconnect speaker on boot).
 * Use `systemctl restart speaker` to reconnect speaker manually.
 
 ### configure_status_led.sh

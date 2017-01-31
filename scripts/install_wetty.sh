@@ -15,13 +15,21 @@ fi
 
 npm install wetty -g
 
+# Change port from 8384
+PORT="2222"
+NEWPORT=$(whiptail --title "WeTTY port" --inputbox "\nEnter port number" 15 46 $PORT 3>&1 1>&2 2>&3)
+exitstatus=$?
+if [ $exitstatus = 0 ]; then
+  PORT="$NEWPORT"
+fi
+
 cat <<EOF > /etc/systemd/system/wetty.service
 [Unit]
 Description=Wetty - Web TTY
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/wetty -p 2222
+ExecStart=/usr/bin/wetty -p $PORT
 
 [Install]
 WantedBy=multi-user.target

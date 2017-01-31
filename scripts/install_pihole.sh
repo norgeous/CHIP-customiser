@@ -28,7 +28,11 @@ sed -i 's|  static routers=.*||g' /etc/dhcpcd.conf
 sed -i 's|  static domain_name_servers=.*||g' /etc/dhcpcd.conf
 
 # change lighthttp port from 80 to 8080
-sed -i 's/\<server.port                 = 80\>/server.port                 = 8080/g' /etc/lighttpd/lighttpd.conf
+NEWPORT=$(whiptail --title "PiHole lighttpd port" --inputbox "\nEnter port number" 15 46 "8080" 3>&1 1>&2 2>&3)
+exitstatus=$?
+if [ $exitstatus = 0 ]; then
+  sed -i 's/server\.port.*/server.port = $NEWPORT/g' /etc/lighttpd/lighttpd.conf
+fi
 
 # restart services
 systemctl restart networking dhcpcd dnsmasq lighttpd

@@ -23,6 +23,13 @@ syncthing -generate="/root/.config/syncthing/"
 # Open Syncthing to remote access
 sed -i 's/127.0.0.1/0.0.0.0/g' /root/.config/syncthing/config.xml
 
+# Change port from 8384
+NEWPORT=$(whiptail --title "Syncthing GUI port" --inputbox "\nEnter port number" 15 46 "8384" 3>&1 1>&2 2>&3)
+exitstatus=$?
+if [ $exitstatus = 0 ]; then
+  sed -i 's/:8384/:$NEWPORT/g' /root/.config/syncthing/config.xml
+fi
+
 # Configure Syncthing service
 cat <<EOF > /etc/systemd/system/syncthing.service
 [Unit]

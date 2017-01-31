@@ -26,6 +26,14 @@ if (whiptail --title "MotionEye" --yesno "Install MotionEye?" 15 46) then
   cp /usr/local/share/motioneye/extra/motioneye.conf.sample /etc/motioneye/motioneye.conf
   mkdir -p /var/lib/motioneye
   cp /usr/local/share/motioneye/extra/motioneye.systemd-unit-local /etc/systemd/system/motioneye.service
+
+  # Change port from 8765
+  NEWPORT=$(whiptail --title "MotionEye port" --inputbox "\nEnter port number" 15 46 "8765" 3>&1 1>&2 2>&3)
+  exitstatus=$?
+  if [ $exitstatus = 0 ]; then
+    sed -i 's/port .*/port $NEWPORT/g' /etc/motioneye/motioneye.conf
+  fi
+  
   systemctl daemon-reload
   systemctl enable motioneye
   systemctl start motioneye
