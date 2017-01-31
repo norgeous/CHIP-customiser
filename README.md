@@ -55,15 +55,18 @@ bash <(curl -sL https://rawgit.com/norgeous/CHIP-customiser/master/RUNME.sh)
 ### install_button_menu.sh
 * Use chip's built-in button and status led to control chip (WIP).
 
-### wifi_ap.sh
+### configure_wifi_ap.sh
 * Broadcast wifi ap on wlan1.
 * Enable nat forwarding.
 * CHIP acts as router (if wlan0 is connected to the internet).
 
-### bluetooth_speaker.sh
+### configure_bluetooth_speaker.sh
 * Connect a blutooth speaker.
 * Setup a systemd to reconnect it on reboot.
 * Use `systemctl restart speaker` to reconnect speaker manually.
+
+### configure_status_led.sh
+* Change behaviour of status LED (defaults to heartbeat).
 
 ## CHIP flashing quick reference
 1. Connect the FEL - GND wire.
