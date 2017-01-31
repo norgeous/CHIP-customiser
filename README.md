@@ -12,40 +12,55 @@ bash <(curl -sL https://rawgit.com/norgeous/CHIP-customiser/master/RUNME.sh)
 ## What options are available
 
 ### update.sh
-Performs a system update, upgrade and autoremove.
+* Performs a system update.
+* Performs a system upgrade.
+* Autoremoves unused package.
 
 ### first_run.sh
-Change default hostname, username and password, disable root password, configure Locale and Timezone, reduce swappiness (to protect NAND) and enables the `ll` command.
+* Change default hostname.
+* Change default username and password.
+* Disable root password.
+* Configure Locale and Timezone.
+* Reduce swappiness (to protect NAND a bit).
+* Enable the `ll` command.
 
 ### nginx_router.sh
-Sets up `nginx` and `php-fpm` on port 80 as a jump off point for other services.
-The page lists all open ports and provides reboot and shutdown buttons.
-Can be accesed via http://router.admin/ when using wifi_ap.
+* Install `nginx` on port 80.
+* Install `php5-fpm`.
+* Adds a jump off point for other services - a page that lists all open ports and provides reboot and shutdown buttons.
+* Can be accesed via http://router.admin/ when using wifi_ap.sh.
 
 ### wifi_ap.sh
-Broadcast wifi ap on wlan1, causes chip to act as router (if wlan0 is connected to the internet).
+* Broadcast wifi ap on wlan1.
+* Enable nat forwarding.
+* CHIP acts as router (if wlan0 is connected to the internet).
 
 ### pihole.sh
-Network wide adblocker using DNS installed to port 8080. Works well with wifi_ap and nginx_router.
+* Network wide adblocker using DNS installed to port 8080.
 
 ### motioneye.sh
-Cheap CCTV camera.
+* Cheap CCTV camera.
 
 ### say.sh
-Install Android's local TTS engine and create wrapper for `say` command.
+* Install Android's local TTS engine.
+* create wrapper for TTS engine as `say` command.
 
 ### bluetooth_speaker.sh
-Connect a blutooth speaker and setup a systemd to reconnect it on reboot.
-Use `systemctl restart speaker` to reconnect speaker manually.
+* Connect a blutooth speaker and setup a systemd to reconnect it on reboot.
+* Use `systemctl restart speaker` to reconnect speaker manually.
 
 ### nodejs.sh
-Install node js 7
+* Install node js 7
 
 ### wetty.sh
-Installs browser acessable tty through npm and sets a systemd service on port 2222.
+* Installs browser acessable tty through npm and sets a systemd service on port 2222.
 
 ### button_menu.sh
-Use chip's built-in button and status led to control chip (WIP).
+* Use chip's built-in button and status led to control chip (WIP).
+
+### syncthing.sh
+* Install Syncthing (File sync tool.
+* https://syncthing.net/
 
 
 ## CHIP flashing quick reference

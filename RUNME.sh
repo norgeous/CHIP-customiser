@@ -21,6 +21,7 @@ OPTIONS=$(whiptail --title "CHIP customiser v0.1" --checklist --separate-output 
 "nodejs.sh" "" OFF \
 "wetty.sh" "" OFF \
 "button_menu.sh" "" OFF \
+"syncthing.sh" "" OFF \
 3>&1 1>&2 2>&3)
 exitstatus=$?
 if [ $exitstatus = 0 ]; then
