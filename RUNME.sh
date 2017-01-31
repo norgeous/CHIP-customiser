@@ -9,7 +9,7 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 OPTIONS=$(whiptail --title "CHIP customiser v0.1" --checklist --separate-output \
-"\nChoose your options, use Spacebar to select multiple options then press Enter." 16 46 6 \
+"\nChoose your options, use Spacebar to select multiple options then press Enter." 15 46 6 \
 "update.sh" "" OFF \
 "first_run.sh" "" OFF \
 "install_nginx_router.sh" "" OFF \
