@@ -7,7 +7,7 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 # Update
-if (whiptail --title "Update" --yesno "Perform a system update, upgrade and autoremove old packages?\n(internet connection needed)" 9 46) then
+if (whiptail --title "Update" --yesno "Perform the following commands?\n* apt update\n* apt upgrade -y\n* apt-get autoremove --purge -y\n(internet connection required)" 15 46) then
   apt update
   apt upgrade -y
   apt-get autoremove --purge -y
