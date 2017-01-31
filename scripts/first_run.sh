@@ -10,7 +10,7 @@ fi
 
 # hostname
 CURRENTHOST=`hostname`
-NEWHOST=$(whiptail --title "Hostname" --inputbox "\nEnter new hostname:" 9 40 $CURRENTHOST 3>&1 1>&2 2>&3)
+NEWHOST=$(whiptail --title "Hostname" --inputbox "\nEnter new hostname:" 15 46 $CURRENTHOST 3>&1 1>&2 2>&3)
 exitstatus=$?
 if [ $exitstatus = 0 ]; then
   sed -i "s/$CURRENTHOST/$NEWHOST/g" "/etc/hosts"
@@ -21,7 +21,7 @@ fi
 
 # change 1000 username and set new password
 CURRENTUSER=`cat /etc/passwd | grep 1000 | cut -d: -f1`
-NEWNAME=$(whiptail --title "User" --inputbox "\nEnter new username for UID 1000:" 9 36 $CURRENTUSER 3>&1 1>&2 2>&3)
+NEWNAME=$(whiptail --title "User" --inputbox "\nEnter new username for UID 1000:" 15 46 $CURRENTUSER 3>&1 1>&2 2>&3)
 exitstatus=$?
 if [ $exitstatus = 0 ]; then
   usermod -l "$NEWNAME" -d "/home/$NEWNAME" -m "$CURRENTUSER"
@@ -29,26 +29,26 @@ if [ $exitstatus = 0 ]; then
 fi
 
 # change 1000 users password
-if (whiptail --title "$CURRENTUSER Password" --yesno "Change $CURRENTUSER password?" 8 36) then
+if (whiptail --title "$CURRENTUSER Password" --yesno "Change $CURRENTUSER password?" 15 46) then
   clear
   echo "Enter password for the user '$CURRENTUSER':"
   passwd "$CURRENTUSER"
 fi
 
 # disable root login, other user can still use sudo
-if (whiptail --title "Root Password" --yesno "Remove root password?" 8 36) then
+if (whiptail --title "Root Password" --yesno "Remove root password?" 15 46) then
   passwd -dl root
 fi
 
 # Locale and Timezone
-if (whiptail --title "Locale and Timezone" --yesno "Install and configure Locale and Timezones?" 8 36) then
+if (whiptail --title "Locale and Timezone" --yesno "Install and configure Locale and Timezones?" 15 46) then
   apt install -y locales
   dpkg-reconfigure locales
   dpkg-reconfigure tzdata
 fi
 
 # Reduce swappiness
-if (whiptail --title "Swappiness" --yesno "Protect NAND by reducing swappiness to 10?" 8 36) then
+if (whiptail --title "Swappiness" --yesno "Protect NAND by reducing swappiness to 10?" 15 46) then
   if [ $(cat /etc/sysctl.conf | grep vm.swappiness | wc -l) -eq 0 ]; then
 cat <<EOF >> /etc/sysctl.conf
 #
@@ -60,7 +60,7 @@ EOF
 fi
 
 # Enable ll command
-if (whiptail --title "Enable ll command" --yesno "Create global alias for the ll command?" 8 36) then
+if (whiptail --title "Enable ll command" --yesno "Create global alias for the ll command?" 15 46) then
   if [ $(cat /etc/bash.bashrc | grep "alias ll" | wc -l) -eq 0 ]; then
     echo "alias ll='ls --color=auto -haXl --group-directories-first'" | tee -a /etc/bash.bashrc
   fi
