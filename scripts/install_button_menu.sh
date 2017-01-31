@@ -10,7 +10,8 @@ if (whiptail --title "Button Menu" --yesno "Install button menu?" 15 46) then
 
 if ! which node >/dev/null; then
   echo "nodejs is not installed!"
-else
+  bash <(curl -sL "https://rawgit.com/norgeous/CHIP-customiser/master/scripts/install_nodejs.sh")
+fi
 
 # needs fixing (put it in a github repo)
 mkdir /root/j5test
@@ -91,7 +92,5 @@ WantedBy=multi-user.target
 EOF
 systemctl enable node-j5io
 systemctl start node-j5io
-
-fi
 
 fi

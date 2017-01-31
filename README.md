@@ -44,7 +44,7 @@ bash <(curl -sL https://rawgit.com/norgeous/CHIP-customiser/master/RUNME.sh)
 * create wrapper for TTS engine as `say` command.
 
 ### install_nodejs.sh
-* Install node js 7
+* Install NodeJS 7.x
 * https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions
 
 ### install_wetty.sh

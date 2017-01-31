@@ -6,12 +6,12 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-
 if (whiptail --title "WeTTY" --yesno "Install WeTTY?" 15 46) then
 
 if ! which node >/dev/null; then
   echo "nodejs is not installed!"
-else
+  bash <(curl -sL "https://rawgit.com/norgeous/CHIP-customiser/master/scripts/install_nodejs.sh")
+fi
 
 npm install wetty -g
 
@@ -29,7 +29,5 @@ EOF
 
 systemctl enable wetty
 systemctl start wetty
-
-fi
 
 fi
