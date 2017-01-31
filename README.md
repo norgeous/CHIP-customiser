@@ -30,11 +30,6 @@ bash <(curl -sL https://rawgit.com/norgeous/CHIP-customiser/master/RUNME.sh)
 * Adds a jump off point for other services - a page that lists all open ports and provides reboot and shutdown buttons.
 * Can be accesed via http://router.admin/ when using wifi_ap.sh.
 
-### wifi_ap.sh
-* Broadcast wifi ap on wlan1.
-* Enable nat forwarding.
-* CHIP acts as router (if wlan0 is connected to the internet).
-
 ### install_pihole.sh
 * Network wide adblocker using DNS installed to port 8080.
 
@@ -44,10 +39,6 @@ bash <(curl -sL https://rawgit.com/norgeous/CHIP-customiser/master/RUNME.sh)
 ### install_say.sh
 * Install Android's local TTS engine.
 * create wrapper for TTS engine as `say` command.
-
-### bluetooth_speaker.sh
-* Connect a blutooth speaker and setup a systemd to reconnect it on reboot.
-* Use `systemctl restart speaker` to reconnect speaker manually.
 
 ### install_nodejs.sh
 * Install node js 7
@@ -63,6 +54,15 @@ bash <(curl -sL https://rawgit.com/norgeous/CHIP-customiser/master/RUNME.sh)
 
 ### install_button_menu.sh
 * Use chip's built-in button and status led to control chip (WIP).
+
+### wifi_ap.sh
+* Broadcast wifi ap on wlan1.
+* Enable nat forwarding.
+* CHIP acts as router (if wlan0 is connected to the internet).
+
+### bluetooth_speaker.sh
+* Connect a blutooth speaker and setup a systemd to reconnect it on reboot.
+* Use `systemctl restart speaker` to reconnect speaker manually.
 
 ## CHIP flashing quick reference
 1. Connect the FEL - GND wire.
