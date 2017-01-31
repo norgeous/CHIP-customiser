@@ -8,6 +8,9 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
+
+if (whiptail --title "Connect a bluetooth device" --yesno "Connect a bluetooth device now?" 15 46) then
+
 apt install -y pulseaudio-module-bluetooth bluez-tools
 
 sed -i "s/load-module module-native-protocol-unix.*/load-module module-native-protocol-unix auth-anonymous=1/g" "/etc/pulse/system.pa"
@@ -88,7 +91,9 @@ EOF
 systemctl enable speaker
 systemctl restart speaker
 
-fi
-
 #pactl list short sinks
 #pacmd set-default-sink 1
+
+fi
+
+fi

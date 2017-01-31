@@ -6,6 +6,8 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
+if (whiptail --title "Say" --yesno "Install say?" 15 46) then
+
 apt install -y libttspico-utils sox
 
 cat <<EOF > /usr/bin/say
@@ -20,3 +22,5 @@ EOF
 chmod +x /usr/bin/say
 
 amixer set "Power Amplifier" 50%
+
+fi

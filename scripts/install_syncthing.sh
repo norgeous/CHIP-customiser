@@ -6,20 +6,24 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-# syncting repo
+
+if (whiptail --title "Syncthing" --yesno "Install Syncthing?" 15 46) then
+
+# Add Syncthing repo
 curl -s https://syncthing.net/release-key.txt | apt-key add -
 echo "deb http://apt.syncthing.net/ syncthing release" | tee /etc/apt/sources.list.d/syncthing.list
 
-# update and install
+# Update and Install
 apt update
 apt install -y syncthing
 
-# syncthing config file
+# Syncthing config file
 syncthing -generate="/root/.config/syncthing/"
-#sed -i '/<folder/,/<\/folder>/d' /root/.config/syncthing/config.xml
+
+# Open Syncthing to remote access
 sed -i 's/127.0.0.1/0.0.0.0/g' /root/.config/syncthing/config.xml
 
-# config syncthing service
+# Configure Syncthing service
 cat <<EOF > /etc/systemd/system/syncthing.service
 [Unit]
 Description=Syncthing - Open Source Continuous File Synchronization
@@ -38,6 +42,8 @@ RestartForceExitStatus=3 4
 WantedBy=multi-user.target
 EOF
 
-# enable and start
+# Enable and start Syncthing
 systemctl enable syncthing
 systemctl start syncthing
+
+fi

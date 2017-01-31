@@ -6,6 +6,8 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
+if (whiptail --title "Install nginx" --yesno "Install nginx with router page?" 15 46) then
+
 apt install -y lsof php5-fpm nginx
 
 # nginx config
@@ -14,7 +16,6 @@ sed -i 's/# server_tokens off;/server_tokens off;/g' /etc/nginx/nginx.conf
 
 # config default site with proxypass to local services
 cat <<EOF > /etc/nginx/sites-enabled/default
-
 # proxy all connections from 80 to 8080 for pihole (except for the domains listed below)
 server {
   listen              80 default_server;
@@ -32,7 +33,6 @@ server {
     proxy_pass          http://127.0.0.1:8080;
   }
 }
-
 server {
   listen              80;
   listen              [::]:80;
@@ -53,7 +53,6 @@ server {
     deny                all;
   }
 }
-
 EOF
 
 # router homepage
@@ -97,3 +96,5 @@ www-data ALL=NOPASSWD: /sbin/poweroff, /sbin/reboot, /sbin/shutdown, /usr/bin/ls
 EOF
 
 systemctl restart nginx php5-fpm
+
+fi

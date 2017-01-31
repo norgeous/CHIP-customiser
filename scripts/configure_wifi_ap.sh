@@ -6,6 +6,9 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
+
+if (whiptail --title "WIFI AP" --yesno "Configure options of WIFI AP?" 15 46) then
+
 # wlan1 ap settings
 SSID="BTWifi-base"
 PASS="12345678"
@@ -81,3 +84,5 @@ echo 'iptables-restore < /etc/iptables.ipv4.nat' | sudo tee /lib/dhcpcd/dhcpcd-h
 # restart networking to apply settings
 systemctl restart networking dhcpcd dnsmasq
 echo "you may need to reboot!"
+
+fi

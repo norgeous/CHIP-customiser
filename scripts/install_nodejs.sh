@@ -6,13 +6,14 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-if which node >/dev/null; then
 
-  echo "nodejs is already installed!"
+if (whiptail --title "NodeJS" --yesno "Install NodeJS 7?" 15 46) then
 
-else
-
-  curl -sL https://deb.nodesource.com/setup_7.x | bash -
-  apt install -y nodejs build-essential
+  if which node >/dev/null; then
+    echo "nodejs is already installed!"
+  else
+    curl -sL https://deb.nodesource.com/setup_7.x | bash -
+    apt install -y nodejs build-essential
+  fi
 
 fi

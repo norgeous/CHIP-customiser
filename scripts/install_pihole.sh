@@ -6,16 +6,16 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-clear
-echo "pihole will now install, please use these options:"
-echo
-echo "choose wlan1 from the options"
-echo 
-echo "IP address:    192.168.100.1/24"
-echo "Gateway:       192.168.100.1"
-echo
-read -rsp $'Press any key to continue...\n' -n 1 key
-clear
+#clear
+#echo "pihole will now install, please use these options:"
+#echo
+#echo "choose wlan1 from the options"
+#echo 
+#echo "IP address:    192.168.100.1/24"
+#echo "Gateway:       192.168.100.1"
+#echo
+#read -rsp $'Press any key to continue...\n' -n 1 key
+#clear
 
 curl -L https://install.pi-hole.net | bash
 
