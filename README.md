@@ -35,16 +35,19 @@ bash <(curl -sL https://rawgit.com/norgeous/CHIP-customiser/master/RUNME.sh)
 
 ### install_pihole.sh
 * Network wide adblocker using DNS installed to port 8080.
+* https://pi-hole.net/
 
 ### install_motioneye.sh
 * Cheap CCTV camera.
+* https://github.com/ccrisan/motioneye
 
 ### install_say.sh
 * Install Android's local TTS engine.
-* create wrapper for TTS engine as `say` command.
+* Create wrapper for TTS engine as `say` command.
 
 ### install_nodejs.sh
 * Install NodeJS 7.x
+* https://nodejs.org/
 * https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions
 
 ### install_wetty.sh
@@ -52,7 +55,7 @@ bash <(curl -sL https://rawgit.com/norgeous/CHIP-customiser/master/RUNME.sh)
 * https://github.com/krishnasrinivas/wetty
 
 ### install_syncthing.sh
-* Install Syncthing (File syncronisation tool) and repos.
+* Install Syncthing (a file syncronisation tool) and repos.
 * https://syncthing.net/
 
 ### install_button_menu.sh
@@ -69,7 +72,7 @@ bash <(curl -sL https://rawgit.com/norgeous/CHIP-customiser/master/RUNME.sh)
 * Use `systemctl restart speaker` to reconnect speaker manually.
 
 ### configure_status_led.sh
-* Change behaviour of status LED (defaults to heartbeat).
+* Change behaviour of status LED (default is heartbeat).
 
 - - -
 
