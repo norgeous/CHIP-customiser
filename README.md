@@ -3,11 +3,14 @@ Various bash scripts for NTC CHIP using whiptail menus, tested with 4.4.13-ntc-m
 
 ![ScreenShot](preview.png)
 
+- - -
+
 ## Run
 Login as `root` (or `sudo su`) and run with:
 ```
 bash <(curl -sL https://rawgit.com/norgeous/CHIP-customiser/master/RUNME.sh)
 ```
+- - -
 
 ## What options are available
 
@@ -56,17 +59,19 @@ bash <(curl -sL https://rawgit.com/norgeous/CHIP-customiser/master/RUNME.sh)
 * Use chip's built-in button and status led to control chip (WIP).
 
 ### configure_wifi_ap.sh
-* Broadcast wifi ap on wlan1.
-* Enable nat forwarding.
+* Broadcast WIFI AP on wlan1.
+* Enable NAT forwarding.
 * CHIP acts as router (if wlan0 is connected to the internet).
 
 ### configure_bluetooth_speaker.sh
-* Connect a blutooth speaker.
-* Setup a systemd to reconnect it on reboot.
+* Connect a bluetooth speaker.
+* Setup `speaker` systemd (reconnects speaker on boot).
 * Use `systemctl restart speaker` to reconnect speaker manually.
 
 ### configure_status_led.sh
 * Change behaviour of status LED (defaults to heartbeat).
+
+- - -
 
 ## CHIP flashing quick reference
 1. Connect the FEL - GND wire.
