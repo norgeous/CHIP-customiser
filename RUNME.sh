@@ -9,19 +9,19 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 OPTIONS=$(whiptail --title "CHIP customiser v0.1" --checklist --separate-output \
-"\nChoose your options, use Spacebar to select multiple options then press Enter." 16 36 6 \
+"\nChoose your options, use Spacebar to select multiple options then press Enter." 16 46 6 \
 "update.sh" "" OFF \
 "first_run.sh" "" OFF \
-"nginx_router.sh" "" OFF \
-"wifi_ap.sh" "" OFF \
-"pihole.sh" "" OFF \
-"motioneye.sh" "" OFF \
-"say.sh" "" OFF \
-"bluetooth_speaker.sh" "" OFF \
-"nodejs.sh" "" OFF \
-"wetty.sh" "" OFF \
-"button_menu.sh" "" OFF \
-"syncthing.sh" "" OFF \
+"install_nginx_router.sh" "" OFF \
+"install_pihole.sh" "" OFF \
+"install_motioneye.sh" "" OFF \
+"install_say.sh" "" OFF \
+"install_nodejs.sh" "" OFF \
+"install_wetty.sh" "" OFF \
+"install_syncthing.sh" "" OFF \
+"install_button_menu.sh" "" OFF \
+"configure_wifi_ap.sh" "" OFF \
+"configure_bluetooth_speaker.sh" "" OFF \
 3>&1 1>&2 2>&3)
 exitstatus=$?
 if [ $exitstatus = 0 ]; then

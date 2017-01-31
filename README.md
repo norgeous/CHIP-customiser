@@ -24,7 +24,7 @@ bash <(curl -sL https://rawgit.com/norgeous/CHIP-customiser/master/RUNME.sh)
 * Reduce swappiness (to protect NAND a bit).
 * Enable the `ll` command.
 
-### nginx_router.sh
+### install_nginx_router.sh
 * Install `nginx` on port 80.
 * Install `php5-fpm`.
 * Adds a jump off point for other services - a page that lists all open ports and provides reboot and shutdown buttons.
@@ -35,13 +35,13 @@ bash <(curl -sL https://rawgit.com/norgeous/CHIP-customiser/master/RUNME.sh)
 * Enable nat forwarding.
 * CHIP acts as router (if wlan0 is connected to the internet).
 
-### pihole.sh
+### install_pihole.sh
 * Network wide adblocker using DNS installed to port 8080.
 
-### motioneye.sh
+### install_motioneye.sh
 * Cheap CCTV camera.
 
-### say.sh
+### install_say.sh
 * Install Android's local TTS engine.
 * create wrapper for TTS engine as `say` command.
 
@@ -49,19 +49,20 @@ bash <(curl -sL https://rawgit.com/norgeous/CHIP-customiser/master/RUNME.sh)
 * Connect a blutooth speaker and setup a systemd to reconnect it on reboot.
 * Use `systemctl restart speaker` to reconnect speaker manually.
 
-### nodejs.sh
+### install_nodejs.sh
 * Install node js 7
+* https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions
 
-### wetty.sh
+### install_wetty.sh
 * Installs browser acessable tty through npm and sets a systemd service on port 2222.
+* https://github.com/krishnasrinivas/wetty
 
-### button_menu.sh
-* Use chip's built-in button and status led to control chip (WIP).
-
-### syncthing.sh
-* Install Syncthing (File sync tool.
+### install_syncthing.sh
+* Install Syncthing (File syncronisation tool) and repos.
 * https://syncthing.net/
 
+### install_button_menu.sh
+* Use chip's built-in button and status led to control chip (WIP).
 
 ## CHIP flashing quick reference
 1. Connect the FEL - GND wire.
