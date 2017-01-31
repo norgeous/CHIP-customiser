@@ -61,7 +61,8 @@ bash <(curl -sL https://rawgit.com/norgeous/CHIP-customiser/master/RUNME.sh)
 * CHIP acts as router (if wlan0 is connected to the internet).
 
 ### bluetooth_speaker.sh
-* Connect a blutooth speaker and setup a systemd to reconnect it on reboot.
+* Connect a blutooth speaker.
+* Setup a systemd to reconnect it on reboot.
 * Use `systemctl restart speaker` to reconnect speaker manually.
 
 ## CHIP flashing quick reference
