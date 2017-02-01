@@ -58,9 +58,6 @@ bash <(curl -sL https://rawgit.com/norgeous/CHIP-customiser/master/RUNME.sh)
 * Install Syncthing (a file syncronisation tool) and repos.
 * https://syncthing.net/
 
-### install_button_menu.sh
-* Use chip's built-in button and status led to control chip (WIP).
-
 ### configure_wifi_ap.sh
 * Broadcast WIFI AP on wlan1.
 * Enable NAT forwarding.

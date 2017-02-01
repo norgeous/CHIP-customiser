@@ -19,7 +19,6 @@ OPTIONS=$(whiptail --title "CHIP customiser v0.1" --checklist --separate-output 
 "install_nodejs.sh" "" OFF \
 "install_wetty.sh" "" OFF \
 "install_syncthing.sh" "" OFF \
-"install_button_menu.sh" "" OFF \
 "configure_wifi_ap.sh" "" OFF \
 "configure_bluetooth_speaker.sh" "" OFF \
 "configure_status_led.sh" "" OFF \
