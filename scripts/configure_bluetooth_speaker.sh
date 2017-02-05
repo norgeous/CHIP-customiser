@@ -45,6 +45,7 @@ cat <<EOF > /etc/dbus-1/system.d/pulseaudio-bluetooth.conf
 </busconfig>
 EOF
 
+apt install -y expect
 cat <<EOF > /usr/bin/speaker
 #!/bin/bash
 
@@ -54,14 +55,23 @@ pactl load-module module-bluetooth-policy
 pactl load-module module-switch-on-connect
 
 bt-device --set \$1 Trusted 1
-#sleep 1
-{ sleep 1; echo "remove \$1"; sleep 1; echo "scan on"; sleep 30; echo "connect \$1"; sleep 10; } | bluetoothctl
-#sleep 5
+
+/usr/bin/expect << EOE
+spawn bluetoothctl
+send "remove \$1\r"
+expect -re "Device has been removed|Device \$1 not available"
+send "scan on\r"
+expect "Discovery started"
+expect -re ".*Device \$1\.*"
+send "connect \$1\r"
+expect "Connection successful"
+send "quit\r"
+EOE
 
 amixer set "Master" 50%
 
 if which say >/dev/null; then
-  say bluetooth ready
+  say speaker ready
 fi
 EOF
 chmod +x /usr/bin/speaker
