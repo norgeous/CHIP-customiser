@@ -10,12 +10,13 @@ if (whiptail --title "Status LED" --yesno "Disable status LED blinking?" 15 46) 
 
 cat <<EOF > /usr/bin/statusled
 #!/bin/bash
-case $1 in
+case \$1 in
   on)
     echo none kbd-scrollock kbd-numlock kbd-capslock kbd-kanalock kbd-shiftlock kbd-altgrlock kbd-ctrllock kbd-altlock kbd-shiftllock kbd-shiftrlock kbd-ctrlllock kbd-ctrlrlock nand-disk usb-gadget usb-host axp20x-usb-online timer oneshot [heartbeat] backlight gpio cpu0 default-on transient flash torch mmc0 rfkill0 rfkill1 rfkill2 | tee "/sys/class/leds/chip:white:status/trigger"
   off)
     echo none | tee "/sys/class/leds/chip:white:status/trigger"
 EOF
+chmod +x /usr/bin/statusled
 
 cat <<EOF > /etc/systemd/system/statusled.service
 [Unit]
