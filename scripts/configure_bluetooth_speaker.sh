@@ -11,7 +11,10 @@ fi
 
 if (whiptail --title "Connect a bluetooth device" --yesno "Connect a bluetooth device now?" 15 46) then
 
-if [ $(dpkg-query -W -f='${Status}\n' pulseaudio-module-bluetooth bluez-tools 2>/dev/null | wc -l) -ne 2 ]; then
+if [ $(dpkg-query -W -f='${Status}\n' pulseaudio-module-bluetooth bluez-tools 2>/dev/null | wc -l) -eq 2 ]; then
+  echo "pulseaudio-module-bluetooth is already installed!"
+  echo "bluez-tools is already installed!"
+else
   apt install -y pulseaudio-module-bluetooth bluez-tools
 fi
 
@@ -58,7 +61,7 @@ cat <<EOF > "/etc/dbus-1/system.d/pulseaudio-bluetooth.conf"
 </busconfig>
 EOF
 
-cat <<EOF > /etc/systemd/system/pulseaudio.service
+cat <<EOF > /etc/systemd/system/pa.service
 [Unit]
 Description=PulseAudio Daemon
  
@@ -71,8 +74,8 @@ ExecStart=/usr/bin/pulseaudio -D --system --realtime=false --disallow-exit --hig
 [Install]
 WantedBy=multi-user.target
 EOF
-systemctl enable pulseaudio
-systemctl restart pulseaudio
+systemctl enable pa
+systemctl restart pa
 
 
 if which expect >/dev/null; then
