@@ -68,8 +68,7 @@ Description=PulseAudio Daemon
 [Service]
 Type=simple
 PrivateTmp=true
-#ExecStart=/usr/bin/pulseaudio --system --realtime --disallow-exit --no-cpu-limit 
-ExecStart=/usr/bin/pulseaudio -D --system --realtime=false --disallow-exit --high-priority=false
+ExecStart=/usr/bin/pulseaudio --system --realtime=false --disallow-exit --high-priority=false
 
 [Install]
 WantedBy=multi-user.target
