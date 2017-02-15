@@ -13,9 +13,20 @@ if (whiptail --title "Connect a bluetooth device" --yesno "Connect a bluetooth d
 
 apt install -y pulseaudio-module-bluetooth bluez-tools
 
+# pulse config
 sed -i "s/load-module module-native-protocol-unix.*/load-module module-native-protocol-unix auth-anonymous=1/g" "/etc/pulse/system.pa"
 
-cat <<EOF > /etc/dbus-1/system.d/pulseaudio-bluetooth.conf
+if grep -q "### Bluetooth" "/etc/pulse/system.pa"; then
+cat <<EOF >> "/etc/pulse/system.pa"
+
+### Bluetooth
+load-module module-bluetooth-discover
+load-module module-bluetooth-policy
+load-module module-switch-on-connect
+EOF
+fi
+
+cat <<EOF > "/etc/dbus-1/system.d/pulseaudio-bluetooth.conf"
 <!-- This configuration file specifies the required security policies for PulseAudio Bluetooth integration. -->
 <!DOCTYPE busconfig PUBLIC "-//freedesktop//DTD D-BUS Bus Configuration 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/busconfig.dtd">
 <busconfig>
@@ -45,14 +56,19 @@ cat <<EOF > /etc/dbus-1/system.d/pulseaudio-bluetooth.conf
 </busconfig>
 EOF
 
-apt install -y expect
+if which expect >/dev/null; then
+  echo "expect is already installed!"
+else
+  apt install -y expect
+fi
+
 cat <<EOF > /usr/bin/speaker
 #!/bin/bash
 
-pulseaudio -D --realtime=false --high-priority=false --system --disallow-module-loading=false
-pactl load-module module-bluetooth-discover
-pactl load-module module-bluetooth-policy
-pactl load-module module-switch-on-connect
+pulseaudio -D --realtime=false --high-priority=false --system --disallow-module-loading --disallow-exit
+#pactl load-module module-bluetooth-discover
+#pactl load-module module-bluetooth-policy
+#pactl load-module module-switch-on-connect
 
 bt-device --set \$1 Trusted 1
 
