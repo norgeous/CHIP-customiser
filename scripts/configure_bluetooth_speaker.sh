@@ -68,7 +68,7 @@ expect "Connection successful"
 send "quit\r"
 EOE
 
-amixer set "Master" 50%
+#amixer set "Master" 50%
 
 if which say >/dev/null; then
   say speaker ready
