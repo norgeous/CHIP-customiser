@@ -11,7 +11,7 @@ fi
 
 if (whiptail --title "Connect a bluetooth device" --yesno "Connect a bluetooth device now?" 15 46) then
 
-if [ $(dpkg-query -W -f='${Status}\n' pulseaudio-module-bluetooth bluez-tools sed 2>/dev/null | wc -l) -ne 2 ]; then
+if [ $(dpkg-query -W -f='${Status}\n' pulseaudio-module-bluetooth bluez-tools 2>/dev/null | wc -l) -ne 2 ]; then
   apt install -y pulseaudio-module-bluetooth bluez-tools
 fi
 
