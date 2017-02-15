@@ -66,8 +66,8 @@ fi
 
 cat <<EOF > /usr/bin/speaker
 #!/bin/bash
-
-pulseaudio -D --realtime=false --high-priority=false --system --disallow-module-loading --disallow-exit
+#killall pulseaudio
+#pulseaudio -D --realtime=false --high-priority=false --system --disallow-module-loading --disallow-exit
 #pactl load-module module-bluetooth-discover
 #pactl load-module module-bluetooth-policy
 #pactl load-module module-switch-on-connect
@@ -89,7 +89,7 @@ EOE
 #amixer set "Master" 50%
 
 if which say >/dev/null; then
-  say speaker ready
+  say . speaker ready
 fi
 EOF
 chmod +x /usr/bin/speaker
