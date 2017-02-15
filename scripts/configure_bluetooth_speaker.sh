@@ -11,12 +11,14 @@ fi
 
 if (whiptail --title "Connect a bluetooth device" --yesno "Connect a bluetooth device now?" 15 46) then
 
-apt install -y pulseaudio-module-bluetooth bluez-tools
+if [ $(dpkg-query -W -f='${Status}\n' pulseaudio-module-bluetooth bluez-tools sed 2>/dev/null | wc -l) -ne 2 ]; then
+  apt install -y pulseaudio-module-bluetooth bluez-tools
+fi
 
 # pulse config
 sed -i "s/load-module module-native-protocol-unix.*/load-module module-native-protocol-unix auth-anonymous=1/g" "/etc/pulse/system.pa"
 
-if grep -q "### Bluetooth" "/etc/pulse/system.pa"; then
+if ! grep -q "### Bluetooth" "/etc/pulse/system.pa"; then
 cat <<EOF >> "/etc/pulse/system.pa"
 
 ### Bluetooth
