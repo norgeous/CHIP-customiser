@@ -58,6 +58,23 @@ cat <<EOF > "/etc/dbus-1/system.d/pulseaudio-bluetooth.conf"
 </busconfig>
 EOF
 
+cat <<EOF > /etc/systemd/system/pulseaudio.service
+[Unit]
+Description=PulseAudio Daemon
+ 
+[Service]
+Type=simple
+PrivateTmp=true
+#ExecStart=/usr/bin/pulseaudio --system --realtime --disallow-exit --no-cpu-limit 
+ExecStart=/usr/bin/pulseaudio -D --system --realtime=false --disallow-exit --high-priority=false
+
+[Install]
+WantedBy=multi-user.target
+EOF
+systemctl enable pulseaudio
+systemctl restart pulseaudio
+
+
 if which expect >/dev/null; then
   echo "expect is already installed!"
 else
@@ -66,11 +83,6 @@ fi
 
 cat <<EOF > /usr/bin/speaker
 #!/bin/bash
-#killall pulseaudio
-#pulseaudio -D --realtime=false --high-priority=false --system --disallow-module-loading --disallow-exit
-#pactl load-module module-bluetooth-discover
-#pactl load-module module-bluetooth-policy
-#pactl load-module module-switch-on-connect
 
 bt-device --set \$1 Trusted 1
 
@@ -85,8 +97,6 @@ send "connect \$1\r"
 expect "Connection successful"
 send "quit\r"
 EOE
-
-#amixer set "Master" 50%
 
 if which say >/dev/null; then
   say . speaker ready
