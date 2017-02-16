@@ -72,8 +72,8 @@ bash <(curl -sL https://rawgit.com/norgeous/CHIP-customiser/master/RUNME.sh)
 
 ### configure_status_led.sh
 * Change behaviour of status LED (default is heartbeat), choose from list.
-* Add `statusled on` (restore heartbeat) and `statusled off` commands.
-* Setting made permanent via oneshot systemd.
+* Setting made with menu are made permanent via oneshot systemd, check with `systemctl status statusled`.
+* Add temporary led change commands `statusled heartbeat`, `statusled none`, `statusled mmc0`, etc.
 
 - - -
 
