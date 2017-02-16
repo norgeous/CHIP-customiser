@@ -6,67 +6,42 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-if (whiptail --title "Status LED" --yesno "Disable status LED blinking?" 15 46) then
+if (whiptail --title "Status LED" --yesno "Install statusled command?" 15 46) then
 
 cat <<EOF > /usr/bin/statusled
 #!/bin/bash
-case \$1 in
-  on)
-    # none
-    # kbd-scrollock
-    # kbd-numlock
-    # kbd-capslock
-    # kbd-kanalock
-    # kbd-shiftlock
-    # kbd-altgrlock
-    # kbd-ctrllock
-    # kbd-altlock
-    # kbd-shiftllock
-    # kbd-shiftrlock
-    # kbd-ctrlllock
-    # kbd-ctrlrlock
-    # nand-disk
-    # usb-gadget
-    # usb-host
-    # axp20x-usb-online
-    # timer
-    # oneshot
-    # heartbeat
-    # backlight
-    # gpio
-    # cpu0
-    # default-on
-    # transient
-    # flash
-    # torch
-    # mmc0
-    # rfkill0
-    # rfkill1
-    # rfkill2
-    echo heartbeat | tee "/sys/class/leds/chip:white:status/trigger"
-    ;;
-  off)
-    echo none | tee "/sys/class/leds/chip:white:status/trigger"
-    ;;
-esac
-EOF
-chmod +x /usr/bin/statusled
 
-cat <<EOF > /etc/systemd/system/statusled.service
+if [ \$# -eq 0 ]; then
+  MODES=\$(cat /sys/class/leds/chip:white:status/trigger | tr -d "\n" | sed 's|\[||;s|\s| x OFF\n|g;s|\]| x ON|;s|ON x OFF|ON|')
+  MODE=\$(whiptail --title "Choose" --radiolist "Choose" 20 78 10 \`echo "\$MODES"\` 3>&1 1>&2 2>&3)
+  exitstatus=\$?
+  if [ \$exitstatus = 0 ]; then
+
+cat <<EOS > /etc/systemd/system/statusled.service
 [Unit]
-Description=Status LED control
+Description=Status LED set mode at startup
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/statusled off
+ExecStart=/usr/bin/statusled \$MODE
 Type=oneshot
 RemainAfterExit=yes
 
 [Install]
 WantedBy=multi-user.target
-EOF
+EOS
 
-systemctl enable statusled
-systemctl start statusled
+    systemctl enable statusled
+    systemctl start statusled
+
+  else
+    exit
+  fi
+else
+  MODE=\$1
+  echo \$MODE | tee "/sys/class/leds/chip:white:status/trigger"
+fi
+EOF
+chmod +x /usr/bin/statusled
 
 fi

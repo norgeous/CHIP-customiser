@@ -15,9 +15,9 @@ bash <(curl -sL https://rawgit.com/norgeous/CHIP-customiser/master/RUNME.sh)
 ## What options are available
 
 ### update.sh
-* Performs a system update.
-* Performs a system upgrade.
-* Autoremoves unused package.
+* Perform a system update.
+* Perform a system upgrade.
+* Autoremove unused packages.
 
 ### first_run.sh
 * Change default hostname.
@@ -42,7 +42,7 @@ bash <(curl -sL https://rawgit.com/norgeous/CHIP-customiser/master/RUNME.sh)
 * https://github.com/ccrisan/motioneye
 
 ### install_say.sh
-* Install Android's local TTS engine.
+* Install local TTS engine.
 * Create wrapper for TTS engine as `say` command.
 
 ### install_nodejs.sh
@@ -65,11 +65,15 @@ bash <(curl -sL https://rawgit.com/norgeous/CHIP-customiser/master/RUNME.sh)
 
 ### configure_bluetooth_speaker.sh
 * Connect a bluetooth speaker.
+* Setup `pa` systemd (to start pulseaudio on boot).
+* Use `systemctl restart pa` to restart pulse.
 * Setup `speaker` systemd (to reconnect speaker on boot).
 * Use `systemctl restart speaker` to reconnect speaker manually.
 
 ### configure_status_led.sh
-* Change behaviour of status LED (default is heartbeat).
+* Change behaviour of status LED (default is heartbeat), choose from list.
+* Add `statusled on` (restore heartbeat) and `statusled off` commands.
+* Setting made permanent via oneshot systemd.
 
 - - -
 

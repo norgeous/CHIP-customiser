@@ -87,6 +87,7 @@ cat <<EOF > /usr/bin/speaker
 #!/bin/bash
 
 #amixer set "Master" 50%
+
 bt-device --set \$1 Trusted 1
 
 /usr/bin/expect << EOE
