@@ -32,7 +32,7 @@ WantedBy=multi-user.target
 EOS
 
     systemctl enable statusled
-    systemctl start statusled
+    systemctl restart statusled
 
   else
     exit
