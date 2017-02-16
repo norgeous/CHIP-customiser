@@ -44,4 +44,6 @@ fi
 EOF
 chmod +x /usr/bin/statusled
 
+statusled
+
 fi
