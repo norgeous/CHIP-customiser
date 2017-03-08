@@ -73,12 +73,13 @@ if(isset(\$_GET['cmd']) && !empty(\$_GET['cmd'])){
   body{background:black; font-family:arial; color:white;}
   h1{text-align:center;}
   a{display:block; text-align:center; font-size:20px; background:#bada55; box-sizing:border-box; padding:10px; margin:5px auto; text-decoration:none; color:black;}
+  a.system{background:aqua;}
   </style>
 </head>
 <body>
   <h1><?php echo gethostname(); ?> (<?php echo \$_SERVER['HTTP_HOST']; ?>)</h1>
-  <a href="#" onclick="(function(){var xhr = new XMLHttpRequest(); xhr.open('GET','/?cmd=reboot',true); xhr.send('');})(event, this)">reboot</a>
-  <a href="#" onclick="(function(){var xhr = new XMLHttpRequest(); xhr.open('GET','/?cmd=shutdown',true); xhr.send('');})(event, this)">shutdown</a>
+  <a href="#" class="system" onclick="(function(){var xhr = new XMLHttpRequest(); xhr.open('GET','/?cmd=reboot',true); xhr.send('');})(event, this)">reboot</a>
+  <a href="#" class="system" onclick="(function(){var xhr = new XMLHttpRequest(); xhr.open('GET','/?cmd=shutdown',true); xhr.send('');})(event, this)">shutdown</a>
   <?php 
     \$enumerated = [];
     \$listening = explode("\n", trim(shell_exec("sudo lsof -i -P | grep 'LISTEN' | grep '*:' | sed 's|:| |g;s|\s\s*| |g' | cut -d' ' -f1,2,10 | uniq")));
@@ -96,9 +97,9 @@ if(isset(\$_GET['cmd']) && !empty(\$_GET['cmd'])){
   ?>
 
   <?php foreach (\$enumerated as \$label => \$info): ?>
-    <a href="http://<?php echo \$_SERVER['HTTP_HOST']; ?>:<?php echo \$info['port']; ?>/">
-      <?php echo \$info['name']; ?> (<?php echo \$info['port']; ?>)<br/>
-      <?php echo \$info['cmd']; ?> 
+    <a href="http://<?php echo \$_SERVER['HTTP_HOST']; ?>:<?php echo \$info['port']; ?>/" title="<?php echo \$info['cmd']; ?> ">
+      <?php echo \$info['name']; ?> (<?php echo \$info['port']; ?>)
+      
     </a>
   <?php endforeach; ?>
 </body>
