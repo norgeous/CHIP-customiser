@@ -79,11 +79,25 @@ if(isset(\$_GET['cmd']) && !empty(\$_GET['cmd'])){
   <h1><?php echo gethostname(); ?> (<?php echo \$_SERVER['HTTP_HOST']; ?>)</h1>
   <a href="#" onclick="(function(){var xhr = new XMLHttpRequest(); xhr.open('GET','/?cmd=reboot',true); xhr.send('');})(event, this)">reboot</a>
   <a href="#" onclick="(function(){var xhr = new XMLHttpRequest(); xhr.open('GET','/?cmd=shutdown',true); xhr.send('');})(event, this)">shutdown</a>
-  <?php \$openports = explode("\n", trim(shell_exec("sudo lsof -i -P | grep 'LISTEN' | grep '*:' | sed 's|:| |g;s|\s\s*| |g' | cut -d' ' -f1,10 | awk '{t=\$1;\$1=\$2;\$2=t;print;}' | sort -n | uniq"))); ?>
-  <?php foreach (\$openports as \$portinfo): ?>
-    <?php \$info = explode(" ", \$portinfo); ?>
-    <a href="http://<?php echo \$_SERVER['HTTP_HOST']; ?>:<?php echo \$info[0]; ?>/">
-      <?php echo \$info[1]; ?> (<?php echo \$info[0]; ?>)
+  <?php 
+    \$enumerated = [];
+    \$listening = explode("\n", trim(shell_exec("lsof -i -P | grep 'LISTEN' | grep '*:' | sed 's|:| |g;s|\s\s*| |g' | cut -d' ' -f1,2,10 | uniq")));
+    foreach (\$listening as \$processinfo) {
+      \$info = explode(" ", \$processinfo);
+      if (! array_key_exists(\$info[0], \$enumerated)) {
+        \$enumerated[\$info[0]] = [
+          "pid" => \$info[1],
+          "port" => \$info[2],
+          "cmd" => trim(shell_exec("cat /proc/".\$info[1]."/cmdline"))
+        ];
+      }
+    }
+  ?>
+
+  <?php foreach (\$enumerated as \$name => \$info): ?>
+    <a href="http://<?php echo \$_SERVER['HTTP_HOST']; ?>:<?php echo \$info['port']; ?>/">
+      <?php echo \$name; ?> (<?php echo \$info['port']; ?>)<br/>
+      <?php echo \$info['pid']; ?>: <?php echo \$info['cmd']; ?> 
     </a>
   <?php endforeach; ?>
 </body>
