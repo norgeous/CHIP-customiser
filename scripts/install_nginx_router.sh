@@ -81,23 +81,24 @@ if(isset(\$_GET['cmd']) && !empty(\$_GET['cmd'])){
   <a href="#" onclick="(function(){var xhr = new XMLHttpRequest(); xhr.open('GET','/?cmd=shutdown',true); xhr.send('');})(event, this)">shutdown</a>
   <?php 
     \$enumerated = [];
-    \$listening = explode("\n", trim(shell_exec("lsof -i -P | grep 'LISTEN' | grep '*:' | sed 's|:| |g;s|\s\s*| |g' | cut -d' ' -f1,2,10 | uniq")));
+    \$listening = explode("\n", trim(shell_exec("sudo lsof -i -P | grep 'LISTEN' | grep '*:' | sed 's|:| |g;s|\s\s*| |g' | cut -d' ' -f1,2,10 | uniq")));
     foreach (\$listening as \$processinfo) {
       \$info = explode(" ", \$processinfo);
-      if (! array_key_exists(\$info[0], \$enumerated)) {
-        \$enumerated[\$info[0]] = [
+      if (! array_key_exists(\$info[0].\$info[2], \$enumerated)) {
+        \$enumerated[\$info[0].\$info[2]] = [
+          "name" => \$info[0],
           "pid" => \$info[1],
           "port" => \$info[2],
-          "cmd" => trim(shell_exec("cat /proc/".\$info[1]."/cmdline"))
+          "cmd" => trim(shell_exec("cat /proc/".\$info[1]."/cmdline | xargs -0 echo"))
         ];
       }
     }
   ?>
 
-  <?php foreach (\$enumerated as \$name => \$info): ?>
+  <?php foreach (\$enumerated as \$label => \$info): ?>
     <a href="http://<?php echo \$_SERVER['HTTP_HOST']; ?>:<?php echo \$info['port']; ?>/">
-      <?php echo \$name; ?> (<?php echo \$info['port']; ?>)<br/>
-      <?php echo \$info['pid']; ?>: <?php echo \$info['cmd']; ?> 
+      <?php echo \$info['name']; ?> (<?php echo \$info['port']; ?>)<br/>
+      <?php echo \$info['cmd']; ?> 
     </a>
   <?php endforeach; ?>
 </body>
